@@ -1,0 +1,9 @@
+{
+  "name": "ele-web",
+  "root": "public",
+  "clean_urls": false,
+  "error_page": "error.html",
+  "routes": {
+    "**":"index.html"
+  }
+}

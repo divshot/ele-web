@@ -1,0 +1,29 @@
+{
+  "name": "ele-web",
+  "version": "0.0.0",
+  "authors": [
+    "Michael Bleigh <mbleigh@mbleigh.com>"
+  ],
+  "description": "The Web IDE for Ele, the Custom Elements package distributor.",
+  "main": "public/index.html",
+  "keywords": [
+    "web-components",
+    "Polymer"
+  ],
+  "license": "MIT",
+  "homepage": "https://ele.io/",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#~0.3.3",
+    "ace-element": "PolymerLabs/ace-element#~0.3.0",
+    "polymer-grid-layout": "PolymerLabs/polymer-grid-layout#~0.3.0"
+  }
+}

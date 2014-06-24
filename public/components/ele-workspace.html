@@ -1,0 +1,57 @@
+<link rel="import" href="/bower_components/polymer-grid-layout/polymer-grid-layout.html">
+<link rel="import" href="/bower_components/ace-element/ace-element.html">
+
+<polymer-element name="ele-workspace" attributes="layout">
+  <style>
+    :host {
+      width: 100%;
+      height: 100%;
+    }
+    
+    #workspace {
+      width: 100%;
+      height: 100%;
+    }
+    
+    #sourceContainer {
+      background: red;
+    }
+    
+    #demoContainer {
+      background: blue;
+    }
+    
+    #previewContainer {
+      background: yellow;
+    }
+    
+    panel {
+      min-width: 200px;
+      min-height: 200px;
+    }
+  </style>
+  <template>
+    <section id="workspace">
+      <polymer-grid-layout layout="{{currentLayout}}"></polymer-grid-layout>
+      <panel id="sourceContainer"></panel>
+      <panel id="demoContainer"></panel>
+      <panel id="previewContainer"></panel>
+    </section>
+  </template>
+  <script>
+    Polymer('ele-workspace', {
+      layout: 'left',
+      layouts: {
+        left: [[1,2],[1,3]],
+        right: [[2,1],[3,1]]
+      },
+      layoutChanged: function() {
+        this.currentLayout = this.layouts[this.layout];
+        this.$.workspace.class = this.layout;
+      },
+      ready: function() {
+        this.layoutChanged();
+      }
+    });
+  </script>
+</polymer-element>
