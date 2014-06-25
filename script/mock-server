@@ -1,0 +1,26 @@
+#!/usr/bin/env ruby
+
+require 'sinatra'
+require 'json'
+require 'rack/cors'
+
+set :port, ENV['PORT'] || 3000
+
+use Rack::Cors do
+  allow do
+    origins '*'
+    resource '*', headers: :any, methods: [:get, :post, :put, :delete, :patch, :options]
+  end
+end
+
+before do
+  content_type 'application/json'
+end
+
+get '/self' do
+  {
+    id: 1022,
+    login: 'bobuser',
+    name: 'Bob User'
+  }.to_json  
+end

@@ -19,6 +19,7 @@
           _env = this.$.req.response;
           _instances.forEach(function(instance) {
             instance.env = _env;
+            instance.fire('loaded', instance.env);
           });
         }
       });

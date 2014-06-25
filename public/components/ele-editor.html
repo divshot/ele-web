@@ -1,13 +1,19 @@
 <link rel="import" href="/bower_components/polymer-flex-layout/polymer-flex-layout.html">
+<link rel="import" href="/bower_components/core-ajax/core-ajax.html">
 
+<!-- UI -->
 <link rel="import" href="ele-workspace.html">
 <link rel="import" href="ele-header.html">
 <link rel="import" href="ele-footer.html">
+
+<!-- Data -->
+<link rel="import" href="ele-ajax.html">
 <link rel="import" href="divshot-env.html">
 
-<polymer-element name="ele-editor" attributes="package" on-command="{{runCommand}}">
+<polymer-element name="ele-editor" attributes="package env user" on-command="{{runCommand}}">
   <template>
-    <divshot-env env="{{env}}"></divshot-env>
+    <divshot-env env="{{env}}" on-loaded="{{bootstrap}}"></divshot-env>
+    <ele-ajax id="reqSelf" origin="{{env.API_ORIGIN}}" path="/self" on-core-complete="{{checkAuth}}"></ele-ajax>
     <polymer-flex-layout vertical></polymer-flex-layout>
     <ele-header id="header" package="{{package}}"></ele-header>
     <ele-workspace id="workspace" package="{{package}}" flex></ele-workspace>
@@ -29,6 +35,15 @@
       },
       runCommand: function(e, command) {
         this.commands[command.name].call(this, command.args);
+      },
+      bootstrap: function() { this.$.reqSelf.go(); },
+      checkAuth: function(e, result) {
+        if (result.response === 200) {
+          this.user = this.$.reqSelf.response;
+          console.log(this.user);
+        } else {
+          window.location = this.env.API_ORIGIN + "/auth";
+        }
       }
     });
   </script>

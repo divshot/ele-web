@@ -1,0 +1,15 @@
+<link rel="import" href="/bower_components/core-ajax/core-ajax.html">
+
+<polymer-element name="ele-ajax" attributes="origin path response method">
+  <template>
+    <core-ajax id='req' url="{{origin}}{{path}}" response="{{response}}" method="{{method}}" on-core-complete="{{bubble}}" on-core-error="{{bubble}}" on-core-response="{{bubble}}" handleAs="json" withCredentials="true"></core-ajax>
+  </template>
+  <script>
+    Polymer('ele-ajax', {
+      origin: 'https://api.ele.io',
+      method: 'GET',
+      bubble: function() { this.fire.apply(this, arguments); },
+      go: function() { this.$.req.go(); }
+    });
+  </script>
+</polymer-element>
