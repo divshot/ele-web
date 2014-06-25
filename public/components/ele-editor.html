@@ -13,7 +13,7 @@
 <polymer-element name="ele-editor" attributes="package env user" on-command="{{runCommand}}">
   <template>
     <divshot-env env="{{env}}" on-loaded="{{bootstrap}}"></divshot-env>
-    <ele-ajax id="reqSelf" origin="{{env.API_ORIGIN}}" path="/self" on-core-complete="{{checkAuth}}"></ele-ajax>
+    <ele-ajax id="reqSelf" path="/self" on-core-complete="{{checkAuth}}"></ele-ajax>
     
     <template if="{{user}}">
       <polymer-flex-layout vertical></polymer-flex-layout>
@@ -42,19 +42,21 @@
       runCommand: function(e, command) {
         this.commands[command.name].call(this, command.args);
       },
-      bootstrap: function() { 
-        this.user = {
-          name: 'Bob User',
-          id: 1022,
-        }
-        // this.$.reqSelf.go(); 
+      bootstrap: function() {
+        this.$.reqSelf.origin = this.env.API_ORIGIN;
+        this.$.reqSelf.go();
       },
       checkAuth: function(e, result) {
         if (result.response === 200) {
           this.user = this.$.reqSelf.response;
           console.log(this.user);
         } else {
-          window.location = this.env.API_ORIGIN + "/auth";
+          console.warn("Login failed, using fake user data.");
+          this.user = {
+            name: "Fake User",
+            id: 1022,
+            login: "fakeuser"
+          }
         }
       }
     });

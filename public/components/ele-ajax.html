@@ -2,14 +2,27 @@
 
 <polymer-element name="ele-ajax" attributes="origin path response method">
   <template>
+    <divshot-env env="{{env}}" on-loaded="{{envOrigin}}"></divshot-env>
     <core-ajax id='req' url="{{origin}}{{path}}" response="{{response}}" method="{{method}}" on-core-complete="{{bubble}}" on-core-error="{{bubble}}" on-core-response="{{bubble}}" handleAs="json" withCredentials="true"></core-ajax>
   </template>
   <script>
-    Polymer('ele-ajax', {
-      origin: 'https://api.ele.io',
-      method: 'GET',
-      bubble: function() { this.fire.apply(this, arguments); },
-      go: function() { this.$.req.go(); }
-    });
+    (function() {
+      var origin_ = 'https://api.ele.io/';
+    
+      Polymer('ele-ajax', {
+        method: 'GET',
+        set origin(val) {
+          origin_ = val;
+        },
+        get origin() {
+          return origin_;
+        },
+        bubble: function() { this.fire.apply(this, arguments); },
+        envOrigin: function(e, env) {
+          if (env.API_ORIGIN) { this.origin = env.API_ORIGIN; }
+        },
+        go: function() { this.$.req.go(); }
+      });
+    })();
   </script>
 </polymer-element>
