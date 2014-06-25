@@ -1,0 +1,27 @@
+<link rel="import" href="/bower_components/core-ajax/core-ajax.html">
+
+<polymer-element name="divshot-env" attributes="env loaded">
+  <template>
+    <core-ajax id="req" url="/__/env.json" handleAs="json" on-core-response="{{loadEnv}}"></core-ajax>
+  </template>
+  <script>
+    (function() {
+      var _env = null;
+      var _instances = [];
+      var _requested = false;
+      
+      Polymer('divshot-env', {
+        ready: function() {
+          _instances.push(this);
+          if (!_env && !_requested) { this.$.req.go(); _requested = true; }
+        },
+        loadEnv: function() {
+          _env = this.$.req.response;
+          _instances.forEach(function(instance) {
+            instance.env = _env;
+          });
+        }
+      });
+    })();
+  </script>
+</polymer-element>

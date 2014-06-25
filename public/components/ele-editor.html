@@ -3,9 +3,11 @@
 <link rel="import" href="ele-workspace.html">
 <link rel="import" href="ele-header.html">
 <link rel="import" href="ele-footer.html">
+<link rel="import" href="divshot-env.html">
 
 <polymer-element name="ele-editor" attributes="package" on-command="{{runCommand}}">
   <template>
+    <divshot-env env="{{env}}"></divshot-env>
     <polymer-flex-layout vertical></polymer-flex-layout>
     <ele-header id="header" package="{{package}}"></ele-header>
     <ele-workspace id="workspace" package="{{package}}" flex></ele-workspace>

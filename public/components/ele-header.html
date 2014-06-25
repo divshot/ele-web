@@ -1,12 +1,30 @@
-<link rel="import" href="/bower_components/polymer-ui-elements/polymer-ui-elements.html">
+<link rel="import" href="/bower_components/polymer-flex-layout/polymer-flex-layout.html">
+<link rel="import" href="/bower_components/polymer-ui-icon-button/polymer-ui-icon-button.html">
 
 <polymer-element name="ele-header" attributes="package" noscript>
   <template>
-    <h1>{{package.name}}</h1>
+    <polymer-flex-layout></polymer-flex-layout>
+    <h1 id="name">{{package.name}}</h1>
+    <div flex>
+      <polymer-ui-icon-button icon="down" title="My Components"></polymer-ui-icon-button>
+      <polymer-ui-icon-button icon="plus" title="New Component"></polymer-ui-icon-button>
+    </div>
+    <div>
+      <polymer-ui-icon-button icon="shortcut"></polymer-ui-icon-button>
+    </div>
     <style>
       :host {
+        box-sizing: border-box;
         height: 50px;
         background: green;
+        padding: 3px;
+        line-height: 42px;
+      }
+      
+      h1 {
+        padding: 0 8px 0 4px;
+        margin: 0;
+        font-size: 22px;
       }
     </style>
   </template>

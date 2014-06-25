@@ -1,9 +1,9 @@
 <link rel="import" href="/bower_components/ace-element/ace-element.html">
 
-<polymer-element name="ele-workspace" attributes="layout">
+<polymer-element name="ele-workspace" attributes="layout package">
   <template>
-    <panel flex id="sourceContainer">asdasdas</panel>
-    <panel flex id="demoContainer">asdsasd</panel>
+    <panel flex id="sourceContainer">{{package.files[package.name + '.html']}}</panel>
+    <panel flex id="demoContainer">{{package.files['demo.html']}}</panel>
     <panel flex id="previewContainer">demo preview goes here</panel>
     
     <style>
