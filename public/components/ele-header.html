@@ -1,33 +1,29 @@
-<link rel="import" href="/bower_components/polymer-flex-layout/polymer-flex-layout.html">
-<link rel="import" href="/bower_components/polymer-ui-icon-button/polymer-ui-icon-button.html">
+<link rel="import" href="/bower_components/core-toolbar/core-toolbar.html">
+<link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="/bower_components/core-icons/core-icons.html">
 
 <polymer-element name="ele-header" attributes="package user" noscript>
   <template>
-    <polymer-flex-layout></polymer-flex-layout>
-    <h1 id="name">{{package.name}}</h1>
-    <div flex>
-      <polymer-ui-icon-button icon="down" title="My Components"></polymer-ui-icon-button>
-      <polymer-ui-icon-button icon="plus" title="New Component"></polymer-ui-icon-button>
-    </div>
-    <div>
-      <polymer-ui-icon-button icon="shortcut"></polymer-ui-icon-button>
-    </div>
-    <div>
-      {{user.name}}
-    </div>
+    <core-toolbar>
+      <div>{{package.name}}</div>
+      <div flex>
+        <paper-icon-button icon="menu" title="My Components"></paper-icon-button>
+        <paper-icon-button icon="plus" title="New Component"></paper-icon-button>
+      </div>
+      <div>
+        <paper-icon-button icon="shortcut"></paper-icon-button>
+      </div>
+      <div>
+        {{user.name}}
+      </div>
+    </core-toolbar>
     <style>
-      :host {
-        box-sizing: border-box;
-        height: 50px;
-        background: green;
-        padding: 3px;
-        line-height: 42px;
+      core-toolbar {
+        background: #9df;
       }
       
-      h1 {
-        padding: 0 8px 0 4px;
-        margin: 0;
-        font-size: 22px;
+      paper-icon-button {
+        
       }
     </style>
   </template>

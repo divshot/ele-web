@@ -42,7 +42,13 @@
       runCommand: function(e, command) {
         this.commands[command.name].call(this, command.args);
       },
-      bootstrap: function() { this.$.reqSelf.go(); },
+      bootstrap: function() { 
+        this.user = {
+          name: 'Bob User',
+          id: 1022,
+        }
+        // this.$.reqSelf.go(); 
+      },
       checkAuth: function(e, result) {
         if (result.response === 200) {
           this.user = this.$.reqSelf.response;
