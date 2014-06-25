@@ -1,0 +1,17 @@
+<polymer-element name="ele-footer">
+  <template>
+    <polymer-ui-icon-button icon="grid" on-click="{{sendCommand}}" command='{"name":"layout","args":"left"}'></polymer-ui-icon-button>
+    <polymer-ui-icon-button icon="grid" on-click="{{sendCommand}}" command='{"name":"layout","args":"right"}'></polymer-ui-icon-button>
+    <polymer-ui-icon-button icon="grid" on-click="{{sendCommand}}" command='{"name":"layout","args":"vertical"}'></polymer-ui-icon-button>
+    <style>
+      :host { height: 50px; background: violet; }
+    </style>
+  </template>
+  <script>
+    Polymer('ele-footer', {
+      sendCommand: function(e) {
+        this.fire('command', JSON.parse(e.target.getAttribute('command')));
+      }
+    });
+  </script>
+</polymer-element>

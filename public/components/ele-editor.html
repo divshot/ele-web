@@ -1,0 +1,33 @@
+<link rel="import" href="/bower_components/polymer-flex-layout/polymer-flex-layout.html">
+
+<link rel="import" href="ele-workspace.html">
+<link rel="import" href="ele-header.html">
+<link rel="import" href="ele-footer.html">
+
+<polymer-element name="ele-editor" attributes="package" on-command="{{runCommand}}">
+  <template>
+    <polymer-flex-layout vertical></polymer-flex-layout>
+    <ele-header id="header" package="{{package}}"></ele-header>
+    <ele-workspace id="workspace" package="{{package}}" flex></ele-workspace>
+    <ele-footer id="footer" package="{{package}}" ></ele-footer>
+  </template>
+  <script>
+    Polymer('ele-editor', {
+      package: {
+        name: 'my-element',
+        files: {
+          'my-element.html': '<polymer-element></polymer-element>',
+          'demo.html': 'demo content'
+        }
+      },
+      commands: {
+        layout: function(type) {
+          this.$.workspace.setAttribute('layout', type);
+        }
+      },
+      runCommand: function(e, command) {
+        this.commands[command.name].call(this, command.args);
+      }
+    });
+  </script>
+</polymer-element>
