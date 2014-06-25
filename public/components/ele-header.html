@@ -1,7 +1,7 @@
 <link rel="import" href="/bower_components/polymer-flex-layout/polymer-flex-layout.html">
 <link rel="import" href="/bower_components/polymer-ui-icon-button/polymer-ui-icon-button.html">
 
-<polymer-element name="ele-header" attributes="package" noscript>
+<polymer-element name="ele-header" attributes="package user" noscript>
   <template>
     <polymer-flex-layout></polymer-flex-layout>
     <h1 id="name">{{package.name}}</h1>
@@ -11,6 +11,9 @@
     </div>
     <div>
       <polymer-ui-icon-button icon="shortcut"></polymer-ui-icon-button>
+    </div>
+    <div>
+      {{user.name}}
     </div>
     <style>
       :host {
