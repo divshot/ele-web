@@ -21,6 +21,9 @@
       <ele-workspace id="workspace" package="{{package}}" flex></ele-workspace>
       <ele-footer id="footer" package="{{package}}" ></ele-footer>
     </template>
+    <template if="{{!user}}">
+      <div id="spinner">Loading, please wait...</div>
+    </template>
   </template>
   <script>
     Polymer('ele-editor', {
