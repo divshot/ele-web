@@ -2,6 +2,8 @@
 <link rel="import" href="/bower_components/polymer-flex-layout/polymer-flex-layout.html">
 <link rel="import" href="/bower_components/polymer-ui-splitter/polymer-ui-splitter.html">
 
+<link rel="import" href="/components/ele-preview.html">
+
 <polymer-element name="ele-workspace" attributes="layout package">
   <template>
     <polymer-flex-layout></polymer-flex-layout>
@@ -12,7 +14,7 @@
     <section flex>
       <polymer-flex-layout vertical></polymer-flex-layout>
       <panel id="previewContainer">
-        <div class="card">demo preview goes here</div>
+        <ele-preview class="card"></ele-preview>
       </panel>
       <polymer-ui-splitter direction="up"></polymer-ui-splitter>
       <panel flex id="demoContainer">
