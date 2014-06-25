@@ -1,44 +1,43 @@
 <link rel="import" href="/bower_components/ace-element/ace-element.html">
+<link rel="import" href="/bower_components/polymer-flex-layout/polymer-flex-layout.html">
+<link rel="import" href="/bower_components/polymer-ui-splitter/polymer-ui-splitter.html">
 
 <polymer-element name="ele-workspace" attributes="layout package">
   <template>
-    <panel flex id="sourceContainer">{{package.files[package.name + '.html']}}</panel>
-    <panel flex id="demoContainer">{{package.files['demo.html']}}</panel>
-    <panel flex id="previewContainer">demo preview goes here</panel>
+    <polymer-flex-layout></polymer-flex-layout>
+    <panel id="sourceContainer"><ace-element theme="clouds" mode="html">{{package.files[package.name + '.html']}}</ace-element></panel>
+    <polymer-ui-splitter direction="left"></polymer-ui-splitter>
+    <section flex>
+      <polymer-flex-layout vertical></polymer-flex-layout>
+      <panel id="previewContainer">demo preview goes here</panel>
+      <polymer-ui-splitter direction="up"></polymer-ui-splitter>
+      <panel flex id="demoContainer"><ace-element theme="clouds" mode="html">{{package.files['demo.html']}}</ace-element></panel>
+    </section>
     
     <style>
-      :host { position: relative; }
+      :host { height: 100%; }
       
       panel {
         display: block;
         overflow: hidden;
-        position: absolute;
-        width: 50%; height: 50%;
+        position: relative;
       }
+      
+      ace-element { width: 100%; height: 100%; }
 
       #sourceContainer {
         background: red;
-        left: 0; top: 0; height: 100%;
+        width: 50%;
       }
 
       #demoContainer {
         background: blue;
-        right: 0; bottom: 0;
       }
 
       #previewContainer {
         background: yellow;
-        top: 0; right: 0;
+        height: 400px;
       }
-      
-      :host([layout=right]) #sourceContainer { right: 0; top: 0; }
-      :host([layout=right]) #demoContainer { left: 0; bottom: 0; }
-      :host([layout=right]) #previewContainer { left: 0; top: 0; }
-      
-      :host([layout=vertical]) panel { width: 100%; height: 33%; position: absolute; }
-      :host([layout=vertical]) #sourceContainer { height: 33%; top: 0; }
-      :host([layout=vertical]) #demoContainer { height: 33%; top: 33%; }
-      :host([layout=vertical]) #previewContainer { height: 33%; top: 66%; }
     </style>
   </template>
   
