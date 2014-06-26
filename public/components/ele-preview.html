@@ -31,20 +31,14 @@
         }
         this.animationFrameRequest = requestAnimationFrame(function() {
           this.animationFrameRequest = undefined;
-          var nextFrame = document.createElement('iframe');
-          nextFrame.style.backgroundColor = 'white';
-          this.shadowRoot.children[0].insertAdjacentElement('afterEnd', nextFrame);
-          this.deliverContent(nextFrame);
-          nextFrame.contentWindow.addEventListener('polymer-ready', function() {
-            setTimeout(function() {
-              while(this.shadowRoot.children.length > 2) {
-                this.shadowRoot.removeChild(this.shadowRoot.children[2]);          
-              }
-            }.bind(this), 40);
-          }.bind(this));
+          this.buildFrame(function(frame) {
+            this.shadowRoot.removeChild(this.shadowRoot.children[1]);
+          });
         }.bind(this));
       },
-      deliverContent: function(frame) {
+      buildFrame: function(callback) {
+        var frame = document.createElement('iframe');
+        this.shadowRoot.appendChild(frame);
         var _document = frame.contentDocument;
         _document.open('text/html', '');
         _document.write('<script src="/bower_components/platform/platform.js"></s'+'cript>');
@@ -52,6 +46,9 @@
         _document.write(this.element.editorValue);
         _document.write(this.demo.editorValue);
         _document.close();
+        frame.contentWindow.addEventListener('polymer-ready', function() {
+          callback.call(this, frame);
+        }.bind(this));
       }
     });
   </script>
