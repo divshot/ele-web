@@ -15,16 +15,29 @@
     <iframe></iframe>
   </template>
   <script>
+    function debounce(func, wait, immediate) {
+      var timeout;
+      return function() {
+        var context = this, args = arguments;
+        clearTimeout(timeout);
+        if (immediate && !timeout) func.apply(context, args);
+        timeout = setTimeout(function() {
+          timeout = null;
+          if (!immediate) func.apply(context, args);
+        }, wait);
+      };
+    };
+
     Polymer('ele-preview', {
       animationFrameRequest: undefined,
       attached: function() {
-        setTimeout(function() {
-          this.element.addEventListener('editor-input', this.sourceChanged.bind(this));
-          this.demo.addEventListener('editor-input', this.sourceChanged.bind(this));
-        }.bind(this), 100);
+        var changeHandler = debounce(this.sourceChanged.bind(this), 100);
+        this.element.addEventListener('editor-input', changeHandler);
+        this.demo.addEventListener('editor-input', changeHandler);
         this.sourceChanged();
       },
       sourceChanged: function() {
+        console.log('sourceChanged');
         if(this.animationFrameRequest) {
           cancelAnimationFrame(this.animationFrameRequest);
           this.animationFrameRequest = undefined;
