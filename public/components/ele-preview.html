@@ -1,15 +1,58 @@
-<polymer-element name="ele-preview">
+<polymer-element name="ele-preview" attributes="element demo">
   <template>
     <style>
+      :host {
+        position: relative;
+      }
+
       iframe {
         border: none;
         width: 100%;
         height: 100%;
+        position: absolute;
       }
     </style>
-    <iframe src="/preview-frame.html"></iframe>
+    <iframe></iframe>
   </template>
   <script>
-    Polymer('ele-preview');
+    Polymer('ele-preview', {
+      animationFrameRequest: undefined,
+      attached: function() {
+        setTimeout(function() {
+          this.element.addEventListener('editor-input', this.sourceChanged.bind(this));
+          this.demo.addEventListener('editor-input', this.sourceChanged.bind(this));
+        }.bind(this), 100);
+        this.sourceChanged();
+      },
+      sourceChanged: function() {
+        if(this.animationFrameRequest) {
+          cancelAnimationFrame(this.animationFrameRequest);
+          this.animationFrameRequest = undefined;
+        }
+        this.animationFrameRequest = requestAnimationFrame(function() {
+          this.animationFrameRequest = undefined;
+          var nextFrame = document.createElement('iframe');
+          nextFrame.style.backgroundColor = 'white';
+          this.shadowRoot.children[0].insertAdjacentElement('afterEnd', nextFrame);
+          this.deliverContent(nextFrame);
+          nextFrame.contentWindow.addEventListener('polymer-ready', function() {
+            setTimeout(function() {
+              while(this.shadowRoot.children.length > 2) {
+                this.shadowRoot.removeChild(this.shadowRoot.children[2]);          
+              }
+            }.bind(this), 40);
+          }.bind(this));
+        }.bind(this));
+      },
+      deliverContent: function(frame) {
+        var _document = frame.contentDocument;
+        _document.open('text/html', '');
+        _document.write('<script src="/bower_components/platform/platform.js"></s'+'cript>');
+        _document.write('<link rel="import" href="/bower_components/polymer/polymer.html">');
+        _document.write(this.element.editorValue);
+        _document.write(this.demo.editorValue);
+        _document.close();
+      }
+    });
   </script>
 </polymer-element>
