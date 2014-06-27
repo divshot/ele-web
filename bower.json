@@ -36,6 +36,8 @@
     "core-scroll-header-panel": "Polymer/core-scroll-header-panel#~0.3.3",
     "paper-fab": "Polymer/paper-fab#~0.3.3",
     "paper-icon-button": "Polymer/paper-icon-button#~0.3.3",
-    "twbs-grid": "robdodson/twbs-grid#~0.2.1"
+    "twbs-grid": "robdodson/twbs-grid#~0.2.1",
+    "paper-icon-button": "Polymer/paper-icon-button#~0.3.3",
+    "lodash": "~2.4.1"
   }
 }
