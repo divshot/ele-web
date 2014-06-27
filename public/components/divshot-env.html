@@ -12,6 +12,8 @@
       
       Polymer('divshot-env', {
         ready: function() {
+          this.env = _env;
+          
           _instances.push(this);
           if (!_env && !_requested) { this.$.req.go(); _requested = true; }
         },
@@ -19,6 +21,7 @@
           _env = this.$.req.response;
           _instances.forEach(function(instance) {
             instance.env = _env;
+            instance.loaded = true;
             instance.fire('loaded', instance.env);
           });
         }

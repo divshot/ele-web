@@ -1,0 +1,46 @@
+<link rel="import" href="/bower_components/paper-input/paper-input.html">
+
+<link rel="import" href="ele-ajax.html">
+
+<polymer-element name="ele-package-settings" attributes="heading package user">
+  <template>
+    <style>
+      :host {
+        text-align: center;
+      }
+      paper-button {
+        background: #333;
+        color: white;
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+      paper-input {
+        text-align: left;
+      }
+    </style>
+    <h1>{{heading}}</h1>
+    <ele-ajax id="req" params="{{data}}" path="/packages" method="POST"></ele-ajax>
+    <div><paper-input label="Element Name (e.g. my-element)" floatingLabel validate="[a-z]([a-z0-9-]-)+[a-z]" value="{{package.name}}"></paper-input></div>
+    <div style="text-align: center;"><paper-button label="Create Package" on-click="{{submit}}"></paper-button></div>
+  </template>
+  <script>
+    Polymer('ele-package-settings', {
+      package: null,
+      buttonLabel: 'Create Element',
+      packageChanged: function() {
+        if (this.package) {
+          this.$.req.path = "/{{user.id}}/{{package.id}}";
+          this.$.req.method = "PUT";
+          this.buttonLabel = 'Update Settings';
+        } else {
+          this.$.req.path = "/packages";
+          this.$.req.method = "POST";
+          this.buttonLabel = 'Create Element';
+        }
+      },
+      submit: function() {
+        this.$.req.go();
+      }
+    });
+  </script>
+</polymer-element>

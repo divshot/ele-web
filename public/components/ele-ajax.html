@@ -7,7 +7,7 @@
   </template>
   <script>
     (function() {
-      var origin_ = 'https://api.ele.io/';
+      var origin_ = 'https://api.ele.io';
     
       Polymer('ele-ajax', {
         method: 'GET',
@@ -18,8 +18,11 @@
           return origin_;
         },
         bubble: function() { this.fire.apply(this, arguments); },
-        envOrigin: function(e, env) {
-          if (env.API_ORIGIN) { this.origin = env.API_ORIGIN; }
+        ready: function() {
+          this.envOrigin();
+        },
+        envOrigin: function() {
+          if (this.env && this.env.API_ORIGIN) { this.origin = this.env.API_ORIGIN; }
         },
         go: function() { this.$.req.go(); }
       });

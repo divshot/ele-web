@@ -1,10 +1,10 @@
 <link rel="import" href="/bower_components/polymer-flex-layout/polymer-flex-layout.html">
-<link rel="import" href="/bower_components/core-ajax/core-ajax.html">
 
 <!-- UI -->
 <link rel="import" href="ele-workspace.html">
 <link rel="import" href="ele-header.html">
 <link rel="import" href="ele-footer.html">
+<link rel="import" href="ele-package-settings.html">
 
 <!-- Data -->
 <link rel="import" href="ele-ajax.html">
@@ -16,9 +16,14 @@
     <ele-ajax id="reqSelf" path="/self" on-core-complete="{{checkAuth}}"></ele-ajax>
     
     <template if="{{user}}">
-      <polymer-flex-layout vertical></polymer-flex-layout>
-      <ele-header id="header" package="{{package}}" env="{{env}}" user="{{user}}"></ele-header>
-      <ele-workspace id="workspace" package="{{package}}" flex></ele-workspace>
+      <template if="{{package}}">
+        <polymer-flex-layout vertical></polymer-flex-layout>
+        <ele-header id="header" package="{{package}}" user="{{user}}"></ele-header>
+        <ele-workspace id="workspace" package="{{package}}" flex></ele-workspace>
+      </template>
+      <template if="{{!package}}">
+        <ele-package-settings heading="Create a New Element"></ele-package-settings>
+      </template>
       <!--<ele-footer id="footer" package="{{package}}" ></ele-footer>-->
     </template>
     <template if="{{!user}}">
@@ -28,10 +33,10 @@
   <script>
     Polymer('ele-editor', {
       package: {
-        name: 'my-element',
+        name: "example-el",
         files: {
-          'my-element.html': '<polymer-element></polymer-element>',
-          'demo.html': 'demo content'
+          "example-el.html": "<polymer-element name=\"example-el\"></polymer-element>",
+          "demo.html": "<example-el></example-el>"
         }
       },
       commands: {

@@ -85,7 +85,6 @@
       </footer>
     </div>
   </core-scroll-header-panel>
-  <script src="/__/env.js"></script>
   <script>
     var panel = document.querySelector('core-scroll-header-panel');
     panel.addEventListener('scroll', function(e) {
@@ -99,7 +98,7 @@
     document.addEventListener('click', function(e) {
       if (e.target.getAttribute('rel') === 'login') {
         e.preventDefault();
-        window.location = __env.API_ORIGIN + "/auth";
+        window.location = "/e";
       }
     });
   </script>
