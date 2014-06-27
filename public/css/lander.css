@@ -1,3 +1,12 @@
+/* white: #FAFAFA */
+/* grey: #EAEAEA */
+/* dark grey: #999 */
+/* indigo: #3F51B5 */
+/* indigo 100: #C5CAE9 */
+/* indigo 500: #3F51B5 */
+/* indigo 700: #303F9F */
+/* pink: #FF4081 */
+
 body { 
   font-family: RobotoDraft, Helvetica, Arial, sans-serif;
   font-size: 20px;
@@ -15,15 +24,6 @@ h3 { font-size: 20px; line-height: 24px; }
 h3 + p { font-size: 14px; line-height: 24px; color: #979797; }
 
 .sign-in { display: block; padding: 10px; }
-
-/* white: #FAFAFA */
-/* grey: #EAEAEA */
-/* dark grey: #999 */
-/* indigo: #3F51B5 */
-/* indigo 100: #C5CAE9 */
-/* indigo 500: #3F51B5 */
-/* indigo 700: #303F9F */
-/* pink: #FF4081 */
 
 nav {
   position: absolute;
@@ -44,18 +44,6 @@ nav paper-button::shadow #icon {
 nav paper-button::shadow #icon svg {
   width: 20px !important;
   height: 20px !important;
-}
-
-.feature {
-  margin: 10px 0;
-  padding: 30px 20px 20px 20px;
-  background: #fff;
-  box-shadow: 0 2px 6px rgba(0,0,0,.02);
-}
-
-.feature img {
-  float: left;
-  margin: 0 20px 50px 0;
 }
 
 bs-container {
@@ -109,6 +97,28 @@ bs-container {
 
 #features {
   padding: 40px 20px;
+}
+
+.feature {
+  margin: 10px 0;
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,.02);
+}
+
+.feature .feature-icon {
+  text-align: center;
+  margin: 0 0 20px;
+  padding: 25px 0 20px 0;
+}
+
+.feature paper-button {
+  font-size: 14px;
+  color: #333;
+}
+
+.feature paper-button::shadow #icon {
+  fill: #FF4081;
 }
 
 core-toolbar .title {
