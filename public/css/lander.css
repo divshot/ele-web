@@ -37,6 +37,7 @@ nav paper-button::shadow span {
 }
 
 nav paper-button::shadow #icon {
+  fill: #fff;
   width: 18px !important;
   height: 18px !important;
 }
@@ -132,6 +133,26 @@ bs-container {
 
 .feature #lightning-icon paper-ripple {
   color: #FFD600;
+}
+
+footer {
+  color: #666;
+  background: #fff;
+  font-size: 14px;
+  text-align: center;
+  padding: 20px 0 15px 0;
+}
+
+footer a {
+  color: #666;
+}
+
+footer a:hover {
+  color: #000;
+}
+
+footer core-icon {
+  fill: #F36C60;
 }
 
 core-toolbar .title {
