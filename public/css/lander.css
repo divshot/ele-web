@@ -33,13 +33,21 @@ nav {
 
 nav paper-button::shadow span {
   font-size: 14px;
+  color: #C5CAE9;
+}
+
+nav paper-button::shadow span:hover {
   color: #fff;
 }
 
 nav paper-button::shadow #icon {
-  fill: #fff;
+  fill: #C5CAE9;
   width: 18px !important;
   height: 18px !important;
+}
+
+nav paper-button::shadow #icon:hover {
+  fill: #fff;
 }
 
 nav paper-button::shadow #icon svg {
@@ -156,7 +164,7 @@ footer core-icon {
 }
 
 core-toolbar .title {
-  /*margin-top: 8px;*/
+  margin-top: 6px;
   padding-left: 8px;
 }
 
@@ -170,22 +178,18 @@ core-scroll-header-panel {
 
 /* background for toolbar when it is at its full size */
 core-scroll-header-panel::shadow #headerContainer {
+  box-shadow: none;
+  transition: 200ms box-shadow ease-out;
   /*box-shadow: 0 3px 3px rgba(0,0,0,.23);*/
+}
+
+core-scroll-header-panel.scrolling::shadow #headerContainer {
+  box-shadow: 0 3px 3px rgba(0,0,0,.23);
 }
 
 core-scroll-header-panel::shadow #headerBg {
   background: #3F51B5;
   border-top: 4px solid #303F9F;
-}
-
-/* background for toolbar when it is condensed */
-core-scroll-header-panel::shadow #condensedHeaderBg {
-  background-color: red;
-}
-
-core-toolbar {
-  color: #f1f1f1;
-  fill: #f1f1f1;
 }
 
 .title {

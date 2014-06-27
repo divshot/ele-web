@@ -12,7 +12,7 @@
   <link rel="import" href="/components/lander/">
 </head>
 <body unresolved>
-  <core-scroll-header-panel unresolved>
+  <core-scroll-header-panel fixed unresolved>
     <core-toolbar>
       <div class="title">
         <a href="/"><img src="/images/logo.svg" width="72" alt="Ele"></a>
@@ -85,5 +85,15 @@
       </footer>
     </div>
   </core-scroll-header-panel>
+  <script>
+    var panel = document.querySelector('core-scroll-header-panel');
+    panel.addEventListener('scroll', function(e) {
+      if (e.detail.target.scrollTop > 64) {
+        panel.classList.add('scrolling');
+      } else {
+        panel.classList.remove('scrolling');
+      }
+    });
+  </script>
 </body>
 </html>
