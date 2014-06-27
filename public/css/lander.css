@@ -107,6 +107,7 @@ bs-container {
 }
 
 .feature .feature-icon {
+  position: relative;
   text-align: center;
   margin: 0 0 20px;
   padding: 25px 0 20px 0;
@@ -119,6 +120,18 @@ bs-container {
 
 .feature paper-button::shadow #icon {
   fill: #FF4081;
+}
+
+.feature #browser-icon paper-ripple {
+  color: #ccc;
+}
+
+.feature #speaker-icon paper-ripple {
+  color: #03A9F4;
+}
+
+.feature #lightning-icon paper-ripple {
+  color: #FFD600;
 }
 
 core-toolbar .title {
