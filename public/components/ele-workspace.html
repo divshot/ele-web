@@ -8,7 +8,7 @@
   <template>
     <polymer-flex-layout></polymer-flex-layout>
     <panel id="sourceContainer">
-      <div class="card"><ace-element id="elementEditor" theme="clouds" mode="html">{{package.files[package.name + '.html']}}</ace-element></div>
+      <div class="card"><ace-element id="elementEditor" theme="clouds" mode="html" tabSize="2">{{package.files[package.name + '.html']}}</ace-element></div>
     </panel>
     <polymer-ui-splitter direction="left"></polymer-ui-splitter>
     <section flex>
@@ -21,7 +21,7 @@
       </panel>
       <polymer-ui-splitter direction="up"></polymer-ui-splitter>
       <panel flex id="demoContainer">
-        <div class="card"><ace-element id="demoEditor" theme="clouds" mode="html">{{package.files['demo.html']}}</ace-element></div>
+        <div class="card"><ace-element id="demoEditor" theme="clouds" mode="html" tabSize="2">{{package.files['demo.html']}}</ace-element></div>
       </panel>
     </section>
     

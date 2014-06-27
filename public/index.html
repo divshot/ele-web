@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-  <title>Ele - Web Component Builder &amp; CDN Hosting</title>
+  <title>Ele - Build and Publish Web Components in the Browser</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -20,7 +20,7 @@
       <nav>
         <a href="#"><paper-button label="Components"></paper-button></a>
         <a href="#"><paper-button label="Resources"></paper-button></a>
-        <a href="#"><paper-button label="Sign In"></paper-button></a>
+        <a rel="login"><paper-button label="Login"></paper-button></a>
         <a href="#"><paper-button icon="search"></paper-button></a>
       </nav>
     </core-toolbar>
@@ -34,8 +34,8 @@
               </bs-col>
               <bs-col md="9">
                 <h1>Build, Browse, and Publish Web Components</h1>
-                <p>Ele (call it &ldquo;Ellie&rdquo;) is a streamlined environment for exploring, experimenting with, and publishing reusable custom HTML elements.</p>
-                <paper-button class="github" iconsrc="/images/github-white.svg" role="button" label="Sign in with GitHub" aria-label="Sign in with GitHub" raisedButton></paper-button>
+                <p>Ele (call it &ldquo;Ellie&rdquo;) is a streamlined environment for exploring, experimenting with, and publishing reusable custom HTML elements made with Web Components.</p>
+                <paper-button class="github" iconsrc="/images/github-white.svg" role="button" label="Sign in with GitHub" aria-label="Sign in with GitHub" raisedButton rel="login"></paper-button>
               </bs-col>
             </bs-row>
           </bs-container>
@@ -85,6 +85,7 @@
       </footer>
     </div>
   </core-scroll-header-panel>
+  <script src="/__/env.js"></script>
   <script>
     var panel = document.querySelector('core-scroll-header-panel');
     panel.addEventListener('scroll', function(e) {
@@ -92,6 +93,13 @@
         panel.classList.add('scrolling');
       } else {
         panel.classList.remove('scrolling');
+      }
+    });
+    
+    document.addEventListener('click', function(e) {
+      if (e.target.getAttribute('rel') === 'login') {
+        e.preventDefault();
+        window.location = __env.API_ORIGIN + "/auth";
       }
     });
   </script>

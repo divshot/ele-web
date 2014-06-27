@@ -17,9 +17,9 @@
     
     <template if="{{user}}">
       <polymer-flex-layout vertical></polymer-flex-layout>
-      <ele-header id="header" package="{{package}}" user="{{user}}"></ele-header>
+      <ele-header id="header" package="{{package}}" env="{{env}}" user="{{user}}"></ele-header>
       <ele-workspace id="workspace" package="{{package}}" flex></ele-workspace>
-      <ele-footer id="footer" package="{{package}}" ></ele-footer>
+      <!--<ele-footer id="footer" package="{{package}}" ></ele-footer>-->
     </template>
     <template if="{{!user}}">
       <div id="spinner">Loading, please wait...</div>
@@ -49,6 +49,12 @@
       checkAuth: function(e, result) {
         if (result.response === 200) {
           this.user = this.$.reqSelf.response;
+          this.user.packages = [
+            {name: "my-element", id: "abc123"},
+            {name: "your-element", id: "abc124"},
+            {name: "our-element", id: "abc125"},
+            {name: "nobodys-element", id: "abc126"}
+          ];
         } else if (result.response === 401) {
           window.location = this.env.API_ORIGIN + "/auth";
         } else {

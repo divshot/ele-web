@@ -1,0 +1,31 @@
+core-toolbar {
+  color: #fff;
+  background: #3F51B5;
+}
+
+paper-menu-button::shadow div {
+  color: black;
+  font-size: 14px;
+  padding: 4px 10px;
+}
+
+paper-icon-button {
+  transition: fill 0.2s;
+}
+
+paper-icon-button, paper-menu-button {
+  fill: white;
+}
+
+#packages a {
+  font-size: 22px;
+  display: block;
+  padding: 8px 12px;
+  color: #333;
+  text-decoration: none;
+}
+
+#create-item {
+  font-weight: 500;
+  text-transform: uppercase;
+}

@@ -1,22 +1,40 @@
 <link rel="import" href="/bower_components/core-toolbar/core-toolbar.html">
 <link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="/bower_components/core-icons/core-icons.html">
+<link rel="import" href="/bower_components/core-icons/iconsets/social-icons.html">
+<link rel="import" href="/bower_components/paper-menu-button/paper-menu-button.html">
+<link rel="import" href="/bower_components/paper-item/paper-item.html">
 
-<polymer-element name="ele-header" attributes="package user" noscript>
+<polymer-element name="ele-header" attributes="package user env">
   <template>
-    <link rel="stylesheet" href="/css/ele-header.css">
+    <link rel="stylesheet" href="ele-header.css">
     <core-toolbar>
+      <paper-menu-button icon="menu" title="Your Elements">
+        <template repeat="{{pack in user.packages}}">
+          <paper-item label="{{pack.name}}"></paper-item>
+        </template>
+        <paper-item label="&plus; Create Element" id="create-item"></paper-item>
+      </paper-menu-button>
       <div>{{package.name}}</div>
       <div flex>
-        <paper-icon-button icon="menu" title="My Components"></paper-icon-button>
-        <paper-icon-button icon="more-vert" title="New Component"></paper-icon-button>
+        <paper-icon-button icon="create" title="Edit Details"></paper-icon-button>
+        <paper-icon-button icon="social:share" title="Publish Element"></paper-icon-button>
       </div>
       <div>
-        <paper-icon-button icon="shortcut"></paper-icon-button>
+        
       </div>
-      <div>
-        {{user.name}}
-      </div>
+      <div>{{user.name}}</div>
+      <paper-icon-button icon="exit-to-app" on-click="{{logout}}"></paper-icon-button>
     </core-toolbar>
   </template>
+  <script>
+    Polymer('ele-header', {
+      toggleUserMenu: function() {
+        this.$.userMenu.opened = !this.$.userMenu.opened;
+      },
+      logout: function() {
+        window.location = this.env.API_ORIGIN + "/logout";
+      }
+    });
+  </script>
 </polymer-element>
