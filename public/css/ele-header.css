@@ -3,6 +3,10 @@ core-toolbar {
   background: #3F51B5;
 }
 
-paper-icon-button {
-  
+paper-icon-button::shadow #icon {
+  fill: #C5CAE9;
+}
+
+paper-icon-button:hover::shadow #icon {
+  fill: #fff;
 }

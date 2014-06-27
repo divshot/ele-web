@@ -1,0 +1,19 @@
+* { 
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%; 
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+body { 
+  font-family: RobotoDraft, Helvetica, Arial, sans-serif;
+  background: #fafafa;
+}
+
+ele-editor { 
+  height: 100%; 
+}
