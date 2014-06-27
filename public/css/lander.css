@@ -1,0 +1,149 @@
+body { 
+  font-family: RobotoDraft, Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  background: #fafafa;
+}
+
+a { text-decoration: none; }
+p { font-weight: 300; }
+
+h1, h2, h3, h4, h5, h6 { margin: 0; font-weight: normal; color: #333; }
+h1 { font-size: 46px; line-height: 60px; }
+h2 { font-size: 30px; line-height: 44px; }
+h1 + p, h2 + p { color: #6c6c6c; line-height: 34px; }
+h3 { font-size: 20px; line-height: 24px; }
+h3 + p { font-size: 14px; line-height: 24px; color: #979797; }
+
+.sign-in { display: block; padding: 10px; }
+
+/* white: #FAFAFA */
+/* grey: #EAEAEA */
+/* dark grey: #999 */
+/* indigo: #3F51B5 */
+/* indigo 100: #C5CAE9 */
+/* indigo 500: #3F51B5 */
+/* indigo 700: #303F9F */
+/* pink: #FF4081 */
+
+nav {
+  position: absolute;
+  top: 16px;
+  right: 10px;
+}
+
+nav paper-button::shadow span {
+  font-size: 14px;
+  color: #fff;
+}
+
+nav paper-button::shadow #icon {
+  width: 18px !important;
+  height: 18px !important;
+}
+
+nav paper-button::shadow #icon svg {
+  width: 20px !important;
+  height: 20px !important;
+}
+
+.feature {
+  margin: 10px 0;
+  padding: 30px 20px 20px 20px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,.02);
+}
+
+.feature img {
+  float: left;
+  margin: 0 20px 50px 0;
+}
+
+bs-container {
+  max-width: 780px;
+}
+
+#intro {
+  background: #3F51B5 url('/images/components.svg');
+  background-size: cover;
+  padding: 80px 20px;
+}
+
+#intro h1 {
+  color: #fff;
+  margin: 0 0 20px;
+}
+
+#intro p {
+  color: #C5CAE9;
+}
+
+#intro bs-col {
+  padding-bottom: 20px;
+}
+
+#intro bs-col:first-child {
+  text-align: center;
+}
+
+#intro .web-component-icon {
+  max-width: 320px;
+}
+
+#intro paper-button {
+  color: #000;
+  background: #FF4081;
+}
+
+#intro paper-button::shadow #icon {
+  margin-top: 7px;
+  margin-right: 4px;
+  padding-left: 8px;
+}
+
+#intro paper-button::shadow span {
+  color: #fff;
+  margin-left: 0;
+  padding-right: 8px;
+  font-size: 16px;
+}
+
+#features {
+  padding: 40px 20px;
+}
+
+core-toolbar .title {
+  /*margin-top: 8px;*/
+  padding-left: 8px;
+}
+
+core-scroll-header-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+/* background for toolbar when it is at its full size */
+core-scroll-header-panel::shadow #headerContainer {
+  /*box-shadow: 0 3px 3px rgba(0,0,0,.23);*/
+}
+
+core-scroll-header-panel::shadow #headerBg {
+  background: #3F51B5;
+  border-top: 4px solid #303F9F;
+}
+
+/* background for toolbar when it is condensed */
+core-scroll-header-panel::shadow #condensedHeaderBg {
+  background-color: red;
+}
+
+core-toolbar {
+  color: #f1f1f1;
+  fill: #f1f1f1;
+}
+
+.title {
+  font-size: 40px;
+}

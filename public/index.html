@@ -1,1 +1,74 @@
-Nothing to see here, open the <a href="/e/example">Editor</a>
+<!doctype html>
+<html>
+<head>
+  <title>Ele - Web Component Builder &amp; CDN Hosting</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <script src="/bower_components/platform/platform.js"></script>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=RobotoDraft:300,400,500|Source+Code+Pro:400,700">
+  <link rel="stylesheet" href="/css/lander.css">
+  <link rel="import" href="/bower_components/polymer/polymer.html">
+  <link rel="import" href="/components/lander/">
+</head>
+<body unresolved>
+  <core-scroll-header-panel unresolved>
+    <core-toolbar>
+      <div class="title">
+        <a href="/"><img src="/images/logo.svg" width="72" alt="Ele"></a>
+      </div>
+      <nav>
+        <a href="#"><paper-button label="Components"></paper-button></a>
+        <a href="#"><paper-button label="Resources"></paper-button></a>
+        <a href="#"><paper-button label="Sign In"></paper-button></a>
+        <a href="#"><paper-button icon="search"></paper-button></a>
+      </nav>
+    </core-toolbar>
+    <div class="content">
+      <main>
+        <section id="intro">
+          <bs-container>
+            <bs-row>
+              <bs-col md="3">
+                <img class="web-component-icon" src="/images/web-components.svg" width="100%">
+              </bs-col>
+              <bs-col md="9">
+                <h1>Build, Browse, and Publish Web Components</h1>
+                <p>Ele (call it &ldquo;Ellie&rdquo;) is a streamlined environment for exploring, experimenting with, and publishing reusable custom HTML elements.</p>
+                <paper-button class="github" iconsrc="/images/github-white.svg" role="button" label="Sign in with GitHub" aria-label="Sign in with GitHub" raisedButton></paper-button>
+              </bs-col>
+            </bs-row>
+          </bs-container>
+        </section>
+        <section id="features">
+          <bs-container>
+            <bs-row>
+              <bs-col md="4">
+                <div class="feature">
+                  <img src="/images/browser.svg" width="51">
+                  <h3>Build in the Browser</h3>
+                  <p>Code your component directly in the browser with full access to Polymer’s element sets.</p>
+                </div>
+              </bs-col>
+              <bs-col md="4">
+                <div class="feature">
+                  <img src="/images/speaker.svg" width="52">
+                  <h3>Showcase It</h3>
+                  <p>Create a demo to quickly showcase your awesome element. Browse elements made by others.</p>
+                </div>
+              </bs-col>
+              <bs-col md="4">
+                <div class="feature">
+                  <img src="/images/lightning.svg" width="40">
+                  <h3>Publish and Go</h3>
+                  <p>Publish releases of your element and use them directly from our CDN or install them using Bower.</p>
+                </div>
+              </bs-col>
+            </bs-row>
+          </bs-container>
+        </section>
+      </main>
+    </div>
+  </core-scroll-header-panel>
+</body>
+</html>
