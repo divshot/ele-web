@@ -39,6 +39,7 @@
     "twbs-grid": "robdodson/twbs-grid#~0.2.1",
     "lodash": "~2.4.1",
     "paper-input": "Polymer/paper-input#~0.3.3",
-    "paper-button": "Polymer/paper-button#~0.3.3"
+    "paper-button": "Polymer/paper-button#~0.3.3",
+    "paper-menu-button": "Polymer/paper-menu-button#~0.3.3"
   }
 }
