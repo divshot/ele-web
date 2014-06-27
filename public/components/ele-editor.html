@@ -49,14 +49,10 @@
       checkAuth: function(e, result) {
         if (result.response === 200) {
           this.user = this.$.reqSelf.response;
-          console.log(this.user);
+        } else if (result.response === 401) {
+          window.location = this.env.API_ORIGIN + "/auth";
         } else {
-          console.warn("Login failed, using fake user data.");
-          this.user = {
-            name: "Fake User",
-            id: 1022,
-            login: "fakeuser"
-          }
+          alert("There was a problem connecting to the API. Sorry!");
         }
       }
     });
