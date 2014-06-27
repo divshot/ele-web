@@ -4,6 +4,7 @@
   "clean_urls": false,
   "error_page": "error.html",
   "routes": {
+    "/e":"editor.html",
     "/e/**":"editor.html"
   }
 }
