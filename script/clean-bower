@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+
+require 'fileutils'
+
+BOWER_DIR = File.dirname(__FILE__) + "/../public/bower_components"
+
+Dir[BOWER_DIR + "/*/test"].each do |test_dir|
+  puts "- Deleting test directory #{test_dir}"
+  FileUtils.rm_r(test_dir)
+end
+
+(Dir[BOWER_DIR + "/ace-element/src-min-noconflict/mode-*"].reject{|t| t =~ /\-(javascript|html|css|svg|json|text|markdown)\.js/i} +
+    Dir[BOWER_DIR + "/ace-element/src-min-noconflict/theme-*"].reject{|t| t.include?('clouds.js') } +
+    Dir[BOWER_DIR + "/*/demo.html"] +
+    Dir[BOWER_DIR + "/*/index.html"] +
+    Dir[BOWER_DIR + "/*/README.md"]).each do |file|
+  puts "- Deleting #{file}"
+  FileUtils.rm(file)
+end
