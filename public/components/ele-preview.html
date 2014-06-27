@@ -1,3 +1,5 @@
+<script src="/bower_components/lodash/dist/lodash.js"></script>
+
 <polymer-element name="ele-preview" attributes="element demo">
   <template>
     <style>
@@ -15,23 +17,10 @@
     <iframe></iframe>
   </template>
   <script>
-    function debounce(func, wait, immediate) {
-      var timeout;
-      return function() {
-        var context = this, args = arguments;
-        clearTimeout(timeout);
-        if (immediate && !timeout) func.apply(context, args);
-        timeout = setTimeout(function() {
-          timeout = null;
-          if (!immediate) func.apply(context, args);
-        }, wait);
-      };
-    };
-
     Polymer('ele-preview', {
       animationFrameRequest: undefined,
       attached: function() {
-        var changeHandler = debounce(this.sourceChanged.bind(this), 100);
+        var changeHandler = _.debounce(this.sourceChanged.bind(this), 250);
         this.element.addEventListener('editor-input', changeHandler);
         this.demo.addEventListener('editor-input', changeHandler);
         this.sourceChanged();
