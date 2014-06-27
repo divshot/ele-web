@@ -4,6 +4,7 @@
 
 <polymer-element name="ele-header" attributes="package user" noscript>
   <template>
+    <link rel="stylesheet" href="/css/ele-header.css">
     <core-toolbar>
       <div>{{package.name}}</div>
       <div flex>
@@ -17,14 +18,5 @@
         {{user.name}}
       </div>
     </core-toolbar>
-    <style>
-      core-toolbar {
-        background: #9df;
-      }
-      
-      paper-icon-button {
-        
-      }
-    </style>
   </template>
 </polymer-element>
