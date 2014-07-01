@@ -2,8 +2,8 @@
 
 <polymer-element name="ele-package-list" attributes="packages active">
   <template>
-    <template repeat="{{package in user.packages}}">
-      <paper-item active="{{package.name == active}}" on-click="{{loadPackage(package.name)}}">{{package.name}}</paper-item>
+    <template repeat="{{package in packages}}">
+      <paper-item active="{{package.name == active}}" on-click="{{loadPackage}}">{{package.name}}</paper-item>
     </template>
     <style>
       paper-item[active] {
@@ -15,7 +15,8 @@
   <script>
     Polymer('ele-package-list', {
       loadPackage: function(e) {
-        console.log(arguments);
+        e.target.setAttribute('active', true);
+        this.fire('selected', e.target.innerText);
       }
     });
   </script>

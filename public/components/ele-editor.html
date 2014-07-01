@@ -30,7 +30,7 @@
             <polymer-flex-layout vertical></polymer-flex-layout>
             <core-toolbar>Your Elements</core-toolbar>
             <div flex id="element-sidebar">
-              <ele-package-list packages="{{user.packages}}"></ele-package-list>
+              <ele-package-list packages="{{user.packages}}" on-selected="loadPackage"></ele-package-list>
               <paper-button id="new-element">Create New Element</paper-button>
             </div>
           </core-header-panel>
@@ -76,8 +76,10 @@
           alert("There was a problem connecting to the API. Sorry!");
         }
       },
+      loadPackage: function(e) {
+        console.log('loadPackage', arguments);
+      },
       packageLoaded: function(e, pack) {
-        console.log(arguments);
         this.package = pack;
       }
     });
