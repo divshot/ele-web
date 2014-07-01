@@ -14,44 +14,43 @@
 <link rel="import" href="ele-ajax.html">
 <link rel="import" href="divshot-env.html">
 
-<polymer-element name="ele-editor" attributes="package env user">
+<polymer-element name="ele-editor" attributes="package env user packageName">
   <template>
     <link rel="stylesheet" href="ele-editor.css">
     
     <divshot-env env="{{env}}" on-loaded="{{bootstrap}}"></divshot-env>
-    <ele-ajax id="reqSelf" path="/self" on-core-complete="{{checkAuth}}"></ele-ajax>
     
-    <template if="{{user}}">
-      <template if="{{package}}">
-        <core-drawer-panel responsiveWidth="1600px" id="drawer">
-          <core-signals on-core-signal-drawer-toggle="{{toggleDrawer}}"></core-signals>
-          
-          <core-header-panel drawer mode="seamed">
-            <polymer-flex-layout vertical></polymer-flex-layout>
-            <core-toolbar>Your Elements</core-toolbar>
-            <div flex id="element-sidebar">
-              <ele-package-list packages="{{user.packages}}" on-selected="loadPackage"></ele-package-list>
-              <paper-button id="new-element">Create New Element</paper-button>
-            </div>
-          </core-header-panel>
-          
-          <core-header-panel main flex mode="seamed">
-            <polymer-flex-layout vertical></polymer-flex-layout>
-            <ele-header id="header" package="{{package}}" user="{{user}}"></ele-header>
-            <ele-workspace id="workspace" package="{{package}}" flex></ele-workspace>
-          </core-header-panel>
-        </core-drawer-panel>
-      </template>
-      <template if="{{!package}}">
-        <ele-package-settings heading="Create a New Element" on-commit="{{packageLoaded}}"></ele-package-settings>
-      </template>
+    <ele-ajax id="reqSelf" path="/self" on-core-complete="{{checkAuth}}"></ele-ajax>
+    <ele-ajax id="reqPackage" path="/{{user.username}}/{{packageName}}" response="{{package}}" on-core-response="{{packageChanged}}"></ele-ajax>
+    <ele-ajax id="reqCreatePackage" path="/packages" method="POST" response="{{package}}" on-core-response="{{packageChanged}}"></ele-ajax>
+    
+    <template if="{{user && package}}">
+      <core-drawer-panel responsiveWidth="1600px" id="drawer">
+        <core-signals on-core-signal-drawer-toggle="{{toggleDrawer}}"></core-signals>
+
+        <core-header-panel drawer mode="seamed">
+          <polymer-flex-layout vertical></polymer-flex-layout>
+          <core-toolbar>Your Elements</core-toolbar>
+          <div flex id="element-sidebar">
+            <ele-package-list packages="{{user.packages}}" active="{{package.name}}" on-selected="{{loadPackage}}"></ele-package-list>
+            <paper-button id="new-element">Create New Element</paper-button>
+          </div>
+        </core-header-panel>
+
+        <core-header-panel main flex mode="seamed">
+          <polymer-flex-layout vertical></polymer-flex-layout>
+          <ele-header id="header" package="{{package}}" user="{{user}}"></ele-header>
+          <ele-workspace id="workspace" package="{{package}}" flex></ele-workspace>
+        </core-header-panel>
+      </core-drawer-panel>
     </template>
-    <template if="{{!user}}">
+    <template if="{{!user || !package}}">
       <div id="spinner">Loading, please wait...</div>
     </template>
   </template>
   <script>
     Polymer('ele-editor', {
+      package: null,
       commands: {
         layout: function(type) {
           this.$.workspace.setAttribute('layout', type);
@@ -70,17 +69,32 @@
       checkAuth: function(e, result) {
         if (result.response === 200) {
           this.user = this.$.reqSelf.response;
+          if (!this.package) {
+            if (this.user.packages.length > 0) {
+              this.packageName = this.user.packages[0].name;
+            } else {
+              this.$.reqCreatePackage.go();
+            }
+          }
         } else if (result.response === 401) {
           window.location = this.env.API_ORIGIN + "/auth";
         } else {
           alert("There was a problem connecting to the API. Sorry!");
         }
       },
-      loadPackage: function(e) {
-        console.log('loadPackage', arguments);
+      packageChanged: function() {
+        console.log('packageChanged', this.$.drawer.selected);
+        if (this.$.drawer.selected === 'drawer'){ this.$.drawer.togglePanel(); }
       },
-      packageLoaded: function(e, pack) {
-        this.package = pack;
+      loadPackage: function(e, packageName) {
+        this.packageName = packageName;
+      },
+      packageNameChanged: function() {
+        history.pushState(null, "", "/e/" + this.packageName);
+        document.title = "Ele - " + this.packageName + " by " + this.user.name;
+        
+        this.package = null;
+        this.$.reqPackage.go();
       }
     });
   </script>

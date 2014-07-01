@@ -1,12 +1,12 @@
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
 
-<polymer-element name="ele-package-list" attributes="packages active">
+<polymer-element name="ele-package-list" attributes="packages selected">
   <template>
     <template repeat="{{package in packages}}">
-      <paper-item active="{{package.name == active}}" on-click="{{loadPackage}}">{{package.name}}</paper-item>
+      <paper-item class="{{ {active: package.name == selected} | tokenList }}" on-click="{{loadPackage}}">{{package.name}}</paper-item>
     </template>
     <style>
-      paper-item[active] {
+      paper-item.active {
         background: #333;
         color: white;
       }
@@ -15,8 +15,8 @@
   <script>
     Polymer('ele-package-list', {
       loadPackage: function(e) {
-        e.target.setAttribute('active', true);
-        this.fire('selected', e.target.innerText);
+        this.selected = e.target.innerText;
+        this.fire('selected', this.selected);
       }
     });
   </script>
