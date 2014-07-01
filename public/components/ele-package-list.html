@@ -1,0 +1,22 @@
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+
+<polymer-element name="ele-package-list" attributes="packages active">
+  <template>
+    <template repeat="{{package in user.packages}}">
+      <paper-item active="{{package.name == active}}" on-click="{{loadPackage(package.name)}}">{{package.name}}</paper-item>
+    </template>
+    <style>
+      paper-item[active] {
+        background: #333;
+        color: white;
+      }
+    </style>
+  </template>
+  <script>
+    Polymer('ele-package-list', {
+      loadPackage: function(e) {
+        console.log(arguments);
+      }
+    });
+  </script>
+</polymer-element>

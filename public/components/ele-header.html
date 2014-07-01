@@ -9,22 +9,19 @@
   <template>
     <link rel="stylesheet" href="ele-header.css">
     <core-toolbar>
-      <paper-menu-button icon="menu" title="Your Elements">
-        <template repeat="{{pack in user.packages}}">
-          <paper-item label="{{pack.name}}"></paper-item>
-        </template>
-        <paper-item label="&plus; Create Element" id="create-item"></paper-item>
-      </paper-menu-button>
+      <paper-icon-button icon="menu" title="Browse Elements" command="drawer-toggle" id="drawer_toggle" on-click="{{runCommand}}"></paper-icon-button>
       <div>{{package.name}}</div>
       <div flex>
         <paper-icon-button icon="create" title="Edit Details"></paper-icon-button>
         <paper-icon-button icon="social:share" title="Publish Element"></paper-icon-button>
+        <paper-icon-button icon="cancel" title="Delete Element"></paper-icon-button>
       </div>
       <div>
         
       </div>
-      <div>{{user.name}}</div>
-      <paper-icon-button icon="exit-to-app" on-click="{{logout}}"></paper-icon-button>
+      <div id="username">{{user.name}}</div>
+      <paper-icon-button icon="help" on-click="{{launchHelp}}" title="Documentation"></paper-icon-button>
+      <paper-icon-button icon="exit-to-app" on-click="{{logout}}" title="Logout"></paper-icon-button>
     </core-toolbar>
   </template>
   <script>
@@ -34,6 +31,12 @@
       },
       logout: function() {
         window.location = this.env.API_ORIGIN + "/logout";
+      },
+      runCommand: function(e) {
+        this.fire('core-signal', {name: e.target.getAttribute('command')});
+      },
+      launchHelp: function() {
+        window.open('/docs');
       }
     });
   </script>

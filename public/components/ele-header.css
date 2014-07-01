@@ -17,6 +17,18 @@ paper-icon-button, paper-menu-button {
   fill: white;
 }
 
+#username {
+  font-size: 0.9em;
+}
+
+#drawer_toggle {
+  display: none;
+}
+
+:host-context([narrow]) #drawer_toggle {
+  display: inline-block;  
+}
+
 #packages a {
   font-size: 22px;
   display: block;

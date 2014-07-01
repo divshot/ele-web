@@ -19,8 +19,8 @@
       }
     </style>
     <h1>{{heading}}</h1>
-    <ele-ajax id="req" params="{{data}}" path="/packages" method="POST"></ele-ajax>
-    <div><paper-input label="Element Name (e.g. my-element)" floatingLabel validate="[a-z]([a-z0-9-]-)+[a-z]" value="{{package.name}}"></paper-input></div>
+    <ele-ajax id="req" path="/packages" method="POST" on-core-response="{{handleSave}}"></ele-ajax>
+    <div><paper-input label="Element Name (e.g. my-element)" floatingLabel validate="[a-z]([a-z0-9-]-)+[a-z]" value="{{package.name}}" id="name"></paper-input></div>
     <div style="text-align: center;"><paper-button label="Create Package" on-click="{{submit}}"></paper-button></div>
   </template>
   <script>
@@ -39,7 +39,11 @@
         }
       },
       submit: function() {
-        this.$.req.go();
+        this.$.req.go({name: this.$.name.inputValue});
+      },
+      handleSave: function(e, result) {
+        this.fire('commit', result.response);
+        this.package = result.response;
       }
     });
   </script>

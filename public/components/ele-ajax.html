@@ -1,9 +1,9 @@
 <link rel="import" href="../bower_components/core-ajax/core-ajax.html">
 
-<polymer-element name="ele-ajax" attributes="origin path response method">
+<polymer-element name="ele-ajax" attributes="origin path response method params">
   <template>
     <divshot-env env="{{env}}" on-loaded="{{envOrigin}}"></divshot-env>
-    <core-ajax id='req' url="{{origin}}{{path}}" response="{{response}}" method="{{method}}" on-core-complete="{{bubble}}" on-core-error="{{bubble}}" on-core-response="{{bubble}}" handleAs="json" withCredentials="true"></core-ajax>
+    <core-ajax id='req' url="{{origin}}{{path}}" response="{{response}}" method="{{method}}" on-core-complete="{{bubble}}" on-core-error="{{bubble}}" on-core-response="{{bubble}}" handleAs="json" withCredentials="true" contentType="application/json"></core-ajax>
   </template>
   <script>
     (function() {
@@ -18,13 +18,26 @@
           return origin_;
         },
         bubble: function() { this.fire.apply(this, arguments); },
+        paramsChanged: function() {
+          this.setBody(this.params);
+        },
         ready: function() {
           this.envOrigin();
         },
         envOrigin: function() {
           if (this.env && this.env.API_ORIGIN) { this.origin = this.env.API_ORIGIN; }
         },
-        go: function() { this.$.req.go(); }
+        setBody: function(params) {
+          if (typeof(params) == 'string') {
+            this.$.req.body = params;
+          } else {
+            this.$.req.body = JSON.stringify(params);
+          }
+        },
+        go: function(params) { 
+          if (params) { this.setBody(params); }
+          this.$.req.go();
+        }
       });
     })();
   </script>

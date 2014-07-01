@@ -1,0 +1,19 @@
+core-toolbar {
+  background: #FF4081;
+  color: white;
+  fill: white;
+}
+
+[drawer], core-drawer-panel::shadow #drawer {
+  z-index: 1000;
+}
+
+#element-sidebar {
+  background: white;
+}
+
+#element-sidebar paper-button {
+  background: #efefef;
+  display: block;
+  margin: 10px;
+}

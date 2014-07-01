@@ -1,30 +1,50 @@
 <link rel="import" href="../bower_components/polymer-flex-layout/polymer-flex-layout.html">
+<link rel="import" href="../bower_components/core-drawer-panel/core-drawer-panel.html">
+<link rel="import" href="../bower_components/core-signals/core-signals.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
 
 <!-- UI -->
 <link rel="import" href="ele-workspace.html">
 <link rel="import" href="ele-header.html">
 <link rel="import" href="ele-footer.html">
 <link rel="import" href="ele-package-settings.html">
+<link rel="import" href="ele-package-list.html">
 
 <!-- Data -->
 <link rel="import" href="ele-ajax.html">
 <link rel="import" href="divshot-env.html">
 
-<polymer-element name="ele-editor" attributes="package env user" on-command="{{runCommand}}">
+<polymer-element name="ele-editor" attributes="package env user">
   <template>
+    <link rel="stylesheet" href="ele-editor.css">
+    
     <divshot-env env="{{env}}" on-loaded="{{bootstrap}}"></divshot-env>
     <ele-ajax id="reqSelf" path="/self" on-core-complete="{{checkAuth}}"></ele-ajax>
     
     <template if="{{user}}">
       <template if="{{package}}">
-        <polymer-flex-layout vertical></polymer-flex-layout>
-        <ele-header id="header" package="{{package}}" user="{{user}}"></ele-header>
-        <ele-workspace id="workspace" package="{{package}}" flex></ele-workspace>
+        <core-drawer-panel responsiveWidth="1600px" id="drawer">
+          <core-signals on-core-signal-drawer-toggle="{{toggleDrawer}}"></core-signals>
+          
+          <core-header-panel drawer mode="seamed">
+            <polymer-flex-layout vertical></polymer-flex-layout>
+            <core-toolbar>Your Elements</core-toolbar>
+            <div flex id="element-sidebar">
+              <ele-package-list packages="{{user.packages}}"></ele-package-list>
+              <paper-button id="new-element">Create New Element</paper-button>
+            </div>
+          </core-header-panel>
+          
+          <core-header-panel main flex mode="seamed">
+            <polymer-flex-layout vertical></polymer-flex-layout>
+            <ele-header id="header" package="{{package}}" user="{{user}}"></ele-header>
+            <ele-workspace id="workspace" package="{{package}}" flex></ele-workspace>
+          </core-header-panel>
+        </core-drawer-panel>
       </template>
       <template if="{{!package}}">
-        <ele-package-settings heading="Create a New Element"></ele-package-settings>
+        <ele-package-settings heading="Create a New Element" on-commit="{{packageLoaded}}"></ele-package-settings>
       </template>
-      <!--<ele-footer id="footer" package="{{package}}" ></ele-footer>-->
     </template>
     <template if="{{!user}}">
       <div id="spinner">Loading, please wait...</div>
@@ -32,13 +52,6 @@
   </template>
   <script>
     Polymer('ele-editor', {
-      package: {
-        name: "example-el",
-        files: {
-          "example-el.html": "<polymer-element name=\"example-el\"></polymer-element>",
-          "demo.html": "<example-el></example-el>"
-        }
-      },
       commands: {
         layout: function(type) {
           this.$.workspace.setAttribute('layout', type);
@@ -51,20 +64,21 @@
         this.$.reqSelf.origin = this.env.API_ORIGIN;
         this.$.reqSelf.go();
       },
+      toggleDrawer: function(e) {
+        e.target.parentNode.togglePanel();
+      },
       checkAuth: function(e, result) {
         if (result.response === 200) {
           this.user = this.$.reqSelf.response;
-          this.user.packages = [
-            {name: "my-element", id: "abc123"},
-            {name: "your-element", id: "abc124"},
-            {name: "our-element", id: "abc125"},
-            {name: "nobodys-element", id: "abc126"}
-          ];
         } else if (result.response === 401) {
           window.location = this.env.API_ORIGIN + "/auth";
         } else {
           alert("There was a problem connecting to the API. Sorry!");
         }
+      },
+      packageLoaded: function(e, pack) {
+        console.log(arguments);
+        this.package = pack;
       }
     });
   </script>
