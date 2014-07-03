@@ -2,6 +2,7 @@
 
 <polymer-element name="ele-preview" attributes="element demo">
   <template>
+    <divshot-env id="env"></divshot-env>
     <style>
       :host {
         position: relative;
@@ -14,7 +15,7 @@
         position: absolute;
       }
     </style>
-    <iframe></iframe>
+    <iframe id="frame"></iframe>
   </template>
   <script>
     Polymer('ele-preview', {
@@ -23,33 +24,24 @@
         var changeHandler = _.debounce(this.sourceChanged.bind(this), 250);
         this.element.addEventListener('editor-input', changeHandler);
         this.demo.addEventListener('editor-input', changeHandler);
-        this.sourceChanged();
+        this.buildFrame();
       },
       sourceChanged: function() {
-        console.log('sourceChanged');
-        if(this.animationFrameRequest) {
-          cancelAnimationFrame(this.animationFrameRequest);
-          this.animationFrameRequest = undefined;
-        }
-        this.animationFrameRequest = requestAnimationFrame(function() {
-          this.animationFrameRequest = undefined;
-          this.buildFrame(function(frame) {
-            this.shadowRoot.removeChild(this.shadowRoot.children[1]);
-          });
-        }.bind(this));
+        this.body.innerHTML = this.element.editorValue + "\n\n" + this.demo.editorValue;
       },
       buildFrame: function(callback) {
-        var frame = document.createElement('iframe');
-        this.shadowRoot.appendChild(frame);
-        var _document = frame.contentDocument;
+        var _document = this.$.frame.contentDocument;
         _document.open('text/html', '');
-        _document.write('<script src="/bower_components/platform/platform.js"></s'+'cript>');
-        _document.write('<link rel="import" href="/bower_components/polymer/polymer.html">');
-        _document.write(this.element.editorValue);
-        _document.write(this.demo.editorValue);
+        _document.write('<head>' +
+                        '  <base href="' + this.$.env.env['API_ORIGIN'] + '/user/example/dev/">' +
+                        '  <script src="../platform/platform.js"></s' + 'cript>' +
+                        '</head>');
         _document.close();
-        frame.contentWindow.addEventListener('polymer-ready', function() {
-          callback.call(this, frame);
+        this.body = _document.createElement('body');
+        _document.firstChild.appendChild(this.body);
+        
+        this.$.frame.contentWindow.addEventListener('polymer-ready', function() {
+          this.sourceChanged();
         }.bind(this));
       }
     });

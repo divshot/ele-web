@@ -32,8 +32,8 @@
           <polymer-flex-layout vertical></polymer-flex-layout>
           <core-toolbar>Your Elements</core-toolbar>
           <div flex id="element-sidebar">
-            <ele-package-list packages="{{user.packages}}" active="{{package.name}}" on-selected="{{loadPackage}}"></ele-package-list>
-            <paper-button id="new-element">Create New Element</paper-button>
+            <ele-package-list packages="{{user.packages}}" selected="{{packageName}}" on-selected="{{loadPackage}}"></ele-package-list>
+            <paper-button id="new-element" on-click=="{{createElement}}">Create New Element</paper-button>
           </div>
         </core-header-panel>
 
@@ -73,7 +73,7 @@
             if (this.user.packages.length > 0) {
               this.packageName = this.user.packages[0].name;
             } else {
-              this.$.reqCreatePackage.go();
+              this.createElement();
             }
           }
         } else if (result.response === 401) {
@@ -82,8 +82,13 @@
           alert("There was a problem connecting to the API. Sorry!");
         }
       },
+      createElement: function() {
+        this.package = null;
+        this.packageName = null;
+        this.$.reqCreatePackage.go();
+      },
       packageChanged: function() {
-        console.log('packageChanged', this.$.drawer.selected);
+        this.packageName = this.package.name;
         if (this.$.drawer.selected === 'drawer'){ this.$.drawer.togglePanel(); }
       },
       loadPackage: function(e, packageName) {
@@ -91,7 +96,7 @@
       },
       packageNameChanged: function() {
         history.pushState(null, "", "/e/" + this.packageName);
-        document.title = "Ele - " + this.packageName + " by " + this.user.name;
+        document.title = this.user.username + "/" + this.packageName + " - Ele Web Components Editor";
         
         this.package = null;
         this.$.reqPackage.go();
