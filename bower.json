@@ -42,7 +42,8 @@
     "paper-button": "Polymer/paper-button#~0.3.3",
     "paper-menu-button": "Polymer/paper-menu-button#~0.3.3",
     "core-drawer-panel": "Polymer/core-drawer-panel#~0.3.3",
-    "core-signals": "Polymer/core-signals"
+    "core-signals": "Polymer/core-signals",
+    "pvc-globals": "divshot/pvc-globals"
   },
   "resolutions": {
     "polymer": ">=0.3.0 <1.0.0",

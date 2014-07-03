@@ -1,8 +1,9 @@
 <link rel="import" href="../bower_components/core-ajax/core-ajax.html">
+<link rel="import" href="../bower_components/pvc-globals/pvc-globals.html">
 
-<polymer-element name="ele-ajax" attributes="origin path response method params">
+<polymer-element name="ele-ajax" attributes="path response method params">
   <template>
-    <divshot-env env="{{env}}" on-loaded="{{envOrigin}}"></divshot-env>
+    <pvc-globals values="{{globals}}"></pvc-globals>
     <core-ajax id='req' url="{{origin}}{{path}}" response="{{response}}" method="{{method}}" on-core-complete="{{bubble}}" on-core-error="{{bubble}}" on-core-response="{{bubble}}" handleAs="json" withCredentials="true" contentType="application/json"></core-ajax>
   </template>
   <script>
@@ -25,7 +26,7 @@
           this.envOrigin();
         },
         envOrigin: function() {
-          if (this.env && this.env.API_ORIGIN) { this.origin = this.env.API_ORIGIN; }
+          if (this.globals.env && this.globals.env.API_ORIGIN) { this.origin = this.glboals.env.API_ORIGIN; }
         },
         setBody: function(params) {
           if (typeof(params) == 'string') {
@@ -34,7 +35,7 @@
             this.$.req.body = JSON.stringify(params);
           }
         },
-        go: function(params) { 
+        go: function(params) {
           if (params) { this.setBody(params); }
           this.$.req.go();
         }

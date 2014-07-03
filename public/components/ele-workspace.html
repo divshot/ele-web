@@ -6,11 +6,12 @@
 
 <script src="../bower_components/lodash/dist/lodash.js"></script>
 
-<polymer-element name="ele-workspace" attributes="layout package">
+<polymer-element name="ele-workspace">
   <template>
+    <pvc-globals id="globals" values="[[globals]]"></pvc-globals>
     <polymer-flex-layout></polymer-flex-layout>
     <panel id="sourceContainer">
-      <div class="card"><ace-element id="elementEditor" theme="clouds" mode="html" tabSize="2" on-editor-input="{{updateName}}">{{package.files[package.name + '.html']}}</ace-element></div>
+      <div class="card"><ace-element id="elementEditor" theme="clouds" mode="html" tabSize="2" on-editor-input="{{updateName}}">{{globals.package.files[globals.package.name + '.html']}}</ace-element></div>
     </panel>
     <polymer-ui-splitter direction="left"></polymer-ui-splitter>
     <section flex>
@@ -23,7 +24,7 @@
       </panel>
       <polymer-ui-splitter direction="up"></polymer-ui-splitter>
       <panel flex id="demoContainer">
-        <div class="card"><ace-element id="demoEditor" theme="clouds" mode="html" tabSize="2">{{package.files['demo.html']}}</ace-element></div>
+        <div class="card"><ace-element id="demoEditor" theme="clouds" mode="html" tabSize="2">{{globals.package.files['demo.html']}}</ace-element></div>
       </panel>
     </section>
     
@@ -90,7 +91,7 @@
           var source = this.$.elementEditor.editorValue;
           var match = source.match(NAME_REGEX);
           if (match && match[1]) {
-            this.package.name = match[1].trim();
+            this.globals.package.name = match[1].trim();
           }
         }, 1000)
       });

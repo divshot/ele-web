@@ -2,7 +2,8 @@
 <link rel="import" href="../bower_components/core-drawer-panel/core-drawer-panel.html">
 <link rel="import" href="../bower_components/core-signals/core-signals.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
-
+<link rel="import" href="../bower_components/pvc-globals/pvc-globals.html">
+      
 <!-- UI -->
 <link rel="import" href="ele-workspace.html">
 <link rel="import" href="ele-header.html">
@@ -14,17 +15,18 @@
 <link rel="import" href="ele-ajax.html">
 <link rel="import" href="divshot-env.html">
 
-<polymer-element name="ele-editor" attributes="package env user packageName">
+<polymer-element name="ele-editor" attributes="packageName">
   <template>
     <link rel="stylesheet" href="ele-editor.css">
     
-    <divshot-env env="{{env}}" on-loaded="{{bootstrap}}"></divshot-env>
+    <pvc-globals id="globals" values="{{globals}}"></pvc-globals>
+    <divshot-env id="env" values="{{globals.env}}" on-loaded="{{bootstrap}}"></divshot-env>
     
     <ele-ajax id="reqSelf" path="/self" on-core-complete="{{checkAuth}}"></ele-ajax>
-    <ele-ajax id="reqPackage" path="/{{user.username}}/{{packageName}}" response="{{package}}" on-core-response="{{packageChanged}}"></ele-ajax>
-    <ele-ajax id="reqCreatePackage" path="/packages" method="POST" response="{{package}}" on-core-response="{{packageChanged}}"></ele-ajax>
+    <ele-ajax id="reqPackage" path="/{{globals.user.username}}/{{packageName}}" on-core-response="{{packageResponse}}"></ele-ajax>
+    <ele-ajax id="reqCreatePackage" path="/packages" method="POST" on-core-response="{{packageResponse}}"></ele-ajax>
     
-    <template if="{{user && package}}">
+    <template if="{{globals.user && globals.package}}">
       <core-drawer-panel responsiveWidth="1600px" id="drawer">
         <core-signals on-core-signal-drawer-toggle="{{toggleDrawer}}"></core-signals>
 
@@ -32,25 +34,24 @@
           <polymer-flex-layout vertical></polymer-flex-layout>
           <core-toolbar>Your Elements</core-toolbar>
           <div flex id="element-sidebar">
-            <ele-package-list packages="{{user.packages}}" selected="{{packageName}}" on-selected="{{loadPackage}}"></ele-package-list>
+            <ele-package-list selected="{{packageName}}" on-selected="{{loadPackage}}"></ele-package-list>
             <paper-button id="new-element" on-click=="{{createElement}}">Create New Element</paper-button>
           </div>
         </core-header-panel>
 
         <core-header-panel main flex mode="seamed">
           <polymer-flex-layout vertical></polymer-flex-layout>
-          <ele-header id="header" package="{{package}}" user="{{user}}"></ele-header>
-          <ele-workspace id="workspace" package="{{package}}" flex></ele-workspace>
+          <ele-header id="header"></ele-header>
+          <ele-workspace id="workspace" flex></ele-workspace>
         </core-header-panel>
       </core-drawer-panel>
     </template>
-    <template if="{{!user || !package}}">
+    <template if="{{!globals.user || !globals.package}}">
       <div id="spinner">Loading, please wait...</div>
     </template>
   </template>
   <script>
     Polymer('ele-editor', {
-      package: null,
       commands: {
         layout: function(type) {
           this.$.workspace.setAttribute('layout', type);
@@ -60,7 +61,7 @@
         this.commands[command.name].call(this, command.args);
       },
       bootstrap: function() {
-        this.$.reqSelf.origin = this.env.API_ORIGIN;
+        this.$.reqSelf.origin = this.globals.env.API_ORIGIN;
         this.$.reqSelf.go();
       },
       toggleDrawer: function(e) {
@@ -68,37 +69,44 @@
       },
       checkAuth: function(e, result) {
         if (result.response === 200) {
-          this.user = this.$.reqSelf.response;
-          if (!this.package) {
-            if (this.user.packages.length > 0) {
-              this.packageName = this.user.packages[0].name;
+          this.globals.user = this.$.reqSelf.response;
+          this.globals.packages = this.globals.user.packages;
+          
+          if (!this.globals.package) {
+            if (this.globals.packages.length > 0) {
+              this.packageName = this.globals.packages[0].name;
             } else {
               this.createElement();
             }
           }
         } else if (result.response === 401) {
-          window.location = this.env.API_ORIGIN + "/auth";
+          window.location = this.globals.env.API_ORIGIN + "/auth";
         } else {
           alert("There was a problem connecting to the API. Sorry!");
         }
       },
       createElement: function() {
-        this.package = null;
+        this.globals.package = null;
         this.packageName = null;
         this.$.reqCreatePackage.go();
       },
       packageChanged: function() {
-        this.packageName = this.package.name;
+        if (this.globals.package && this.globals.package.name !== this.packageName){
+          this.packageName = this.globals.package.name;
+        };
         if (this.$.drawer.selected === 'drawer'){ this.$.drawer.togglePanel(); }
+      },
+      packageResponse: function(e, response) {
+        this.globals.package = response.response;
       },
       loadPackage: function(e, packageName) {
         this.packageName = packageName;
       },
       packageNameChanged: function() {
         history.pushState(null, "", "/e/" + this.packageName);
-        document.title = this.user.username + "/" + this.packageName + " - Ele Web Components Editor";
+        document.title = this.globals.user.username + "/" + this.packageName + " - Ele Web Components Editor";
         
-        this.package = null;
+        this.globals.package = null;
         this.$.reqPackage.go();
       }
     });

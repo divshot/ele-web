@@ -4,13 +4,16 @@
 <link rel="import" href="../bower_components/core-icons/iconsets/social-icons.html">
 <link rel="import" href="../bower_components/paper-menu-button/paper-menu-button.html">
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/pvc-globals/pvc-globals.html">
 
-<polymer-element name="ele-header" attributes="package user env">
+<polymer-element name="ele-header">
   <template>
     <link rel="stylesheet" href="ele-header.css">
     <core-toolbar>
+      <pvc-globals id="globals" values="{{globals}}"></pvc-globals>
+      
       <paper-icon-button icon="menu" title="Browse Elements" command="drawer-toggle" id="drawer_toggle" on-click="{{runCommand}}"></paper-icon-button>
-      <div>{{package.name}}</div>
+      <div>{{globals.package.name}}</div>
       <div flex>
         <paper-icon-button icon="create" title="Edit Details"></paper-icon-button>
         <paper-icon-button icon="social:share" title="Publish Element"></paper-icon-button>
@@ -19,7 +22,7 @@
       <div>
         
       </div>
-      <div id="username">{{user.name}}</div>
+      <div id="username">{{globals.user.name}}</div>
       <paper-icon-button icon="help" on-click="{{launchHelp}}" title="Documentation"></paper-icon-button>
       <paper-icon-button icon="exit-to-app" on-click="{{logout}}" title="Logout"></paper-icon-button>
     </core-toolbar>
@@ -30,7 +33,7 @@
         this.$.userMenu.opened = !this.$.userMenu.opened;
       },
       logout: function() {
-        window.location = this.env.API_ORIGIN + "/logout";
+        window.location = this.globals.env.API_ORIGIN + "/logout";
       },
       runCommand: function(e) {
         this.fire('core-signal', {name: e.target.getAttribute('command')});

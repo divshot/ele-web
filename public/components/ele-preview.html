@@ -2,7 +2,7 @@
 
 <polymer-element name="ele-preview" attributes="element demo">
   <template>
-    <divshot-env id="env"></divshot-env>
+    <pvc-globals values="{{globals}}"></pvc-globals>
     <style>
       :host {
         position: relative;
@@ -33,7 +33,7 @@
         var _document = this.$.frame.contentDocument;
         _document.open('text/html', '');
         _document.write('<head>' +
-                        '  <base href="' + this.$.env.env['API_ORIGIN'] + '/user/example/dev/">' +
+                        '  <base href="' + this.globals.env['API_ORIGIN'] + '/__vendor__/bower_components/module/">' +
                         '  <script src="../platform/platform.js"></s' + 'cript>' +
                         '</head>');
         _document.close();
