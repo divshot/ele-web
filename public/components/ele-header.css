@@ -17,6 +17,15 @@ paper-icon-button, paper-menu-button {
   fill: white;
 }
 
+paper-icon-button::shadow #icon {
+  fill: #C5CAE9;
+  transition: fill 0.2s;
+}
+
+paper-icon-button::shadow #icon:hover {
+  fill: #fff;
+}
+
 #username {
   font-size: 0.9em;
 }
