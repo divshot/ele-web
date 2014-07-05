@@ -8,7 +8,7 @@
 
 <polymer-element name="ele-workspace">
   <template>
-    <pvc-globals id="globals" values="[[globals]]"></pvc-globals>
+    <pvc-globals id="globals" values="{{globals}}"></pvc-globals>
     <polymer-flex-layout></polymer-flex-layout>
     <panel id="sourceContainer">
       <div class="card"><ace-element id="elementEditor" theme="clouds" mode="html" tabSize="2" on-editor-input="{{updateName}}">{{globals.package.files[globals.package.name + '.html']}}</ace-element></div>

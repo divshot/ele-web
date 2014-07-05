@@ -2,7 +2,8 @@
 
 <polymer-element name="ele-package-list" attributes="packages selected">
   <template>
-    <template repeat="{{package in packages}}">
+    <pvc-globals values="{{globals}}"></pvc-globals>
+    <template repeat="{{package in globals.packages}}">
       <paper-item class="{{ {active: package.name == selected} | tokenList }}" on-click="{{loadPackage}}">{{package.name}}</paper-item>
     </template>
     <style>

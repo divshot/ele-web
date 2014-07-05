@@ -15,34 +15,64 @@
         position: absolute;
       }
     </style>
-    <iframe id="frame"></iframe>
+    <div id='container'>
+      <iframe id="frame" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts"></iframe>
+    </div>
   </template>
   <script>
     Polymer('ele-preview', {
       animationFrameRequest: undefined,
+      created: function() {
+        this.frameId = new Date().getTime();
+      },
       attached: function() {
-        var changeHandler = _.debounce(this.sourceChanged.bind(this), 250);
+        var changeHandler = _.debounce(this.sourceChanged.bind(this), 500);
         this.element.addEventListener('editor-input', changeHandler);
         this.demo.addEventListener('editor-input', changeHandler);
-        this.buildFrame();
       },
       sourceChanged: function() {
-        this.body.innerHTML = this.element.editorValue + "\n\n" + this.demo.editorValue;
+        this.nextFrame();
       },
-      buildFrame: function(callback) {
-        var _document = this.$.frame.contentDocument;
-        _document.open('text/html', '');
-        _document.write('<head>' +
-                        '  <base href="' + this.globals.env['API_ORIGIN'] + '/__vendor__/bower_components/module/">' +
-                        '  <script src="../platform/platform.js"></s' + 'cript>' +
-                        '</head>');
-        _document.close();
-        this.body = _document.createElement('body');
-        _document.firstChild.appendChild(this.body);
+      _tick: function(cb) {
+        if (this._currentTick) {
+          cancelAnimationFrame(this._currentTick);
+        }
+        this._currentTick = requestAnimationFrame(cb);
+      },
+      nextFrame: function(callback) {
+        // thanks to https://github.com/jsbin/jsbin for some of these mechanics!
+        var frame = document.createElement('iframe');
+        frame.setAttribute('sandbox', 'allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts');
+        frame.setAttribute('frameBorder', '0');
+        frame.setAttribute('name', 'Ele Preview');
+        frame.id = this.frameId++;
         
-        this.$.frame.contentWindow.addEventListener('polymer-ready', function() {
-          this.sourceChanged();
-        }.bind(this));
+        this.$.container.insertBefore(frame, this.$.container.firstChild);
+        
+        var self = this;
+        this._tick(function() {
+          var _window = frame.contentWindow;
+          var _document = _window.document;
+          
+          _document.open();
+          // apparently firefox blows away the first document.write, make it blank
+          _document.write('');
+          _document.write('<!doctype html><html><head>' +
+                          '  <base href="' + self.globals.env['API_ORIGIN'] + '/__vendor__/bower/libs/">' +
+                          '  <script src="../platform/platform.js"></s' + 'cript>' +
+                          '</head>');
+          _document.write('<body>' + self.element.editorValue + "\n\n" + self.demo.editorValue + '</body></html>');
+          _document.close();
+          
+          // clean up old frames once we're loaded up
+          _document.addEventListener('polymer-ready', function(){
+            _.each(self.$.container.querySelectorAll('iframe'), function(oldFrame) {
+              if (oldFrame.id !== frame.id) {
+                oldFrame.parentNode.removeChild(oldFrame);
+              }
+            });  
+          });
+        });
       }
     });
   </script>
