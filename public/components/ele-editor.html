@@ -35,7 +35,7 @@
           <polymer-flex-layout vertical></polymer-flex-layout>
           <core-toolbar>Your Elements</core-toolbar>
           <div flex id="element-sidebar">
-            <ele-package-list selected="{{packageName}}" on-selected="{{loadPackage}}"></ele-package-list>
+            <ele-package-list selected="{{packageId}}" on-selected="{{loadPackage}}"></ele-package-list>
             <paper-button id="new-element" on-click=="{{createElement}}">Create New Element</paper-button>
           </div>
         </core-header-panel>

@@ -4,7 +4,7 @@
   <template>
     <pvc-globals values="{{globals}}"></pvc-globals>
     <template repeat="{{package in globals.packages}}">
-      <paper-item class="{{ {active: package.name == selected} | tokenList }}" on-click="{{loadPackage}}">{{package.name}}</paper-item>
+      <paper-item class="{{ {active: package.id == selected} | tokenList }}" on-click="{{loadPackage}}" data-id="{{package.id}}">{{package.name}}</paper-item>
     </template>
     <style>
       paper-item.active {
@@ -19,7 +19,7 @@
         'globals.package.name': 'updateName'
       },
       loadPackage: function(e) {
-        this.selected = e.target.innerText;
+        this.selected = e.target.getAttribute('data-id');
         this.fire('selected', this.selected);
       },
       updateName: function() {
