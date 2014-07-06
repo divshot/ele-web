@@ -88,7 +88,12 @@
           
           if (!this.globals.package) {
             if (this.globals.packages.length > 0) {
-              this.packageId = this.globals.packages[0].id;
+              var urlMatch = window.location.pathname.match(/\/e\/([^/?]+)/i)
+              if (urlMatch) {
+                this.packageId = urlMatch[1]; 
+              } else {
+                this.packageId = this.globals.packages[0].id;
+              }
             } else {
               this.createElement();
             }
