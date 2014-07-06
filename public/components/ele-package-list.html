@@ -15,9 +15,21 @@
   </template>
   <script>
     Polymer('ele-package-list', {
+      observe: {
+        'globals.package.name': 'updateName'
+      },
       loadPackage: function(e) {
         this.selected = e.target.innerText;
         this.fire('selected', this.selected);
+      },
+      updateName: function() {
+        if (this.globals.packages) {
+          this.globals.packages.forEach((function(package) {
+            if (package.id === this.globals.package.id) {
+              package.name = this.globals.package.name;
+            }
+          }).bind(this));
+        }
       }
     });
   </script>

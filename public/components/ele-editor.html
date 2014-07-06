@@ -15,7 +15,7 @@
 <link rel="import" href="ele-ajax.html">
 <link rel="import" href="divshot-env.html">
 
-<polymer-element name="ele-editor" attributes="packageName">
+<polymer-element name="ele-editor" attributes="packageId">
   <template>
     <link rel="stylesheet" href="ele-editor.css">
     
@@ -23,8 +23,9 @@
     <divshot-env id="env" values="{{globals.env}}" on-loaded="{{bootstrap}}"></divshot-env>
     
     <ele-ajax id="reqSelf" path="/self" on-core-complete="{{checkAuth}}"></ele-ajax>
-    <ele-ajax id="reqPackage" path="/{{globals.user.username}}/{{packageName}}" on-core-response="{{packageResponse}}"></ele-ajax>
+    <ele-ajax id="reqPackage" path="/{{globals.user.username}}/{{packageId}}" on-core-response="{{packageResponse}}"></ele-ajax>
     <ele-ajax id="reqCreatePackage" path="/packages" method="POST" on-core-response="{{packageResponse}}"></ele-ajax>
+    <ele-ajax id="reqUpdatePackage" path="/{{globals.user.username}}/{{globals.package.id}}" method="PUT" on-core-response="{{saveSucceeded}}"></ele-ajax>
     
     <template if="{{globals.user && globals.package}}">
       <core-drawer-panel responsiveWidth="1600px" id="drawer">
@@ -52,6 +53,10 @@
   </template>
   <script>
     Polymer('ele-editor', {
+      observe: {
+        'globals.package': 'packageChanged',
+        'globals.package.name': 'packageNameChanged',
+      },
       commands: {
         layout: function(type) {
           this.$.workspace.setAttribute('layout', type);
@@ -67,6 +72,15 @@
       toggleDrawer: function(e) {
         e.target.parentNode.togglePanel();
       },
+      packageNameChanged: function(oldName, newName) {
+        if (oldName && newName) {
+          this.$.reqUpdatePackage.params = {name: newName};
+          this.$.reqUpdatePackage.go({name: newName});
+        }
+      },
+      saveSucceeded: function() {
+        console.log("Save succeeded.");
+      },
       checkAuth: function(e, result) {
         if (result.response === 200) {
           this.globals.user = this.$.reqSelf.response;
@@ -74,7 +88,7 @@
           
           if (!this.globals.package) {
             if (this.globals.packages.length > 0) {
-              this.packageName = this.globals.packages[0].name;
+              this.packageId = this.globals.packages[0].id;
             } else {
               this.createElement();
             }
@@ -87,27 +101,35 @@
       },
       createElement: function() {
         this.globals.package = null;
-        this.packageName = null;
+        this.packageId = null;
         this.$.reqCreatePackage.go();
       },
       packageChanged: function() {
-        if (this.globals.package && this.globals.package.name !== this.packageName){
-          this.packageName = this.globals.package.name;
+        if (this.globals.package) {
+          document.title = this.globals.user.username + "/" + this.globals.package.name + " - Ele Web Components Editor";
+          if(this.globals.package.id !== this.packageId){
+            this.packageId = this.globals.package.id;
+          }
         };
-        if (this.$.drawer.selected === 'drawer'){ this.$.drawer.togglePanel(); }
+        
+        var drawer = this.shadowRoot.getElementById('drawer');
+        if (drawer && drawer.selected === 'drawer'){ drawer.togglePanel(); }
       },
       packageResponse: function(e, response) {
         this.globals.package = response.response;
       },
       loadPackage: function(e, packageName) {
-        this.packageName = packageName;
+        this.packageId = packageId;
       },
-      packageNameChanged: function() {
-        history.pushState(null, "", "/e/" + this.packageName);
-        document.title = this.globals.user.username + "/" + this.packageName + " - Ele Web Components Editor";
+      packageIdChanged: function() {
+        if (this.packageId) {
+          history.pushState(null, "", "/e/" + this.packageId);
+        }
         
-        this.globals.package = null;
-        this.$.reqPackage.go();
+        if (!this.globals.package || this.globals.package.id !== this.packageId) {
+          this.globals.package = null;
+          this.$.reqPackage.go();
+        }
       }
     });
   </script>

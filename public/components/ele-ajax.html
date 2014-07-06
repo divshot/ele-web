@@ -29,7 +29,7 @@
           if (this.globals.env && this.globals.env.API_ORIGIN) { this.origin = this.glboals.env.API_ORIGIN; }
         },
         setBody: function(params) {
-          if (typeof(params) == 'string') {
+          if (typeof(params) === 'string') {
             this.$.req.body = params;
           } else {
             this.$.req.body = JSON.stringify(params);
