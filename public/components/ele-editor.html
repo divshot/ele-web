@@ -26,10 +26,11 @@
     <ele-ajax id="reqPackage" path="/{{globals.user.username}}/{{packageId}}" on-core-response="{{packageResponse}}"></ele-ajax>
     <ele-ajax id="reqCreatePackage" path="/packages" method="POST" on-core-response="{{packageResponse}}"></ele-ajax>
     <ele-ajax id="reqUpdatePackage" path="/{{globals.user.username}}/{{globals.package.id}}" method="PUT" on-core-response="{{saveSucceeded}}"></ele-ajax>
+    <ele-ajax id="reqDestroyPackage" path="/{{globals.user.username}}/{{globals.package.id}}" method="DELETE" on-core-response="{{destroySucceeded}}"></ele-ajax>
     
     <template if="{{globals.user && globals.package}}">
       <core-drawer-panel responsiveWidth="1600px" id="drawer">
-        <core-signals on-core-signal-drawer-toggle="{{toggleDrawer}}" on-core-signal-save="{{save}}"></core-signals>
+        <core-signals on-core-signal-drawer-toggle="{{toggleDrawer}}" on-core-signal-save="{{save}}" on-core-signal-destroy="{{destroy}}"></core-signals>
 
         <core-header-panel drawer mode="seamed">
           <polymer-flex-layout vertical></polymer-flex-layout>
@@ -84,6 +85,20 @@
       },
       saveSucceeded: function() {
         console.log("Save succeeded.");
+      },
+      destroy: function() {
+        if (confirm('Are you sure you want to delete this element? There is no going back.')) {
+          this.$.reqDestroyPackage.go();
+        }
+      },
+      destroySucceeded: function() {
+        for (var i = 0; i < this.globals.packages.length; i++) {
+          if (this.globals.packages[i].id === this.globals.package.id) {
+            this.globals.packages.splice(i, 1); break;
+          }
+        }
+        this.globals.package = null;
+        this.packageId = this.globals.packages[0].id;
       },
       checkAuth: function(e, result) {
         if (result.response === 200) {

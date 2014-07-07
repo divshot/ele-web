@@ -23,7 +23,7 @@
         this.fire('selected', this.selected);
       },
       updateName: function() {
-        if (this.globals.packages) {
+        if (this.globals.packages && this.globals.package) {
           this.globals.packages.forEach((function(package) {
             if (package.id === this.globals.package.id) {
               package.name = this.globals.package.name;
