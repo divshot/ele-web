@@ -7,7 +7,7 @@ panel {
   padding: 20px;
 }
 
-ace-element { width: 100%; height: 100%; }
+code-mirror { width: 100%; height: 100%; }
 
 .card {
   background: white;

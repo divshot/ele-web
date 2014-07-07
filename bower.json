@@ -23,7 +23,6 @@
   ],
   "dependencies": {
     "polymer": "Polymer/polymer#~0.3.3",
-    "ace-element": "PolymerLabs/ace-element#~0.3.0",
     "polymer-grid-layout": "PolymerLabs/polymer-grid-layout#~0.3.0",
     "core-ajax": "Polymer/core-ajax#~0.3.3",
     "core-icons": "Polymer/core-icons#~0.3.3",
@@ -43,7 +42,8 @@
     "paper-menu-button": "Polymer/paper-menu-button#~0.3.3",
     "core-drawer-panel": "Polymer/core-drawer-panel#~0.3.3",
     "core-signals": "Polymer/core-signals",
-    "pvc-globals": "divshot/pvc-globals"
+    "pvc-globals": "divshot/pvc-globals",
+    "code-mirror": "divshot/code-mirror#master"
   },
   "resolutions": {
     "polymer": ">=0.3.0 <1.0.0",

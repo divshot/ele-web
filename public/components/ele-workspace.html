@@ -1,4 +1,4 @@
-<link rel="import" href="../bower_components/ace-element/ace-element.html">
+<link rel="import" href="../bower_components/code-mirror/code-mirror.html">
 <link rel="import" href="../bower_components/polymer-flex-layout/polymer-flex-layout.html">
 <link rel="import" href="../bower_components/polymer-ui-splitter/polymer-ui-splitter.html">
 
@@ -15,7 +15,7 @@
     
     <polymer-flex-layout></polymer-flex-layout>
     <panel id="sourceContainer">
-      <div class="card"><ace-element id="elementEditor" theme="clouds" mode="html" tabSize="2" on-editor-input="{{editorChanged}}">{{globals.package.files[globals.package.name + '.html']}}</ace-element></div>
+      <div class="card"><code-mirror id="elementEditor" lineWrapping="true" on-change="{{editorChanged}}" value="{{globals.package.files[globals.package.name + '.html']}}"></code-mirror></div>
     </panel>
     <polymer-ui-splitter direction="left"></polymer-ui-splitter>
     <section flex>
@@ -28,7 +28,7 @@
       </panel>
       <polymer-ui-splitter direction="up"></polymer-ui-splitter>
       <panel flex id="demoContainer">
-        <div class="card"><ace-element id="demoEditor" theme="clouds" mode="html" on-editor-input="{{editorChanged}}" tabSize="2">{{globals.package.files['demo.html']}}</ace-element></div>
+        <div class="card"><code-mirror id="demoEditor" on-change="{{editorChanged}}" lineWrapping="true" value="{{globals.package.files['demo.html']}}"></code-mirror></div>
       </panel>
     </section>
   </template>
@@ -38,12 +38,14 @@
       var NAME_REGEX = /<polymer-element.* name=['"]([a-z0-9-]+)['"]/i
     
       Polymer('ele-workspace', {
+        observe: {
+          'globals.package': 'packageChanged'
+        },
         ready: function() {
           this._updateName = _.debounce(this.updateName.bind(this), 1000);
           this._save = _.debounce(this.save.bind(this), 5000);
         },
         editorChanged: function() {
-          console.log("Editor changed...");
           this._updateName();
           this._save();
         },
@@ -53,6 +55,13 @@
           if (match && match[1]) {
             this.globals.package.name = match[1].trim();
           }
+        },
+        packageChanged: function() {
+          var self = this;
+          requestAnimationFrame(function() {
+            self.$.elementEditor.mirror.refresh();
+            self.$.demoEditor.mirror.refresh();
+          });
         },
         save: function() {
           this.fire('core-signal', {name: 'save', data: {source: this.$.elementEditor.editorValue, demo: this.$.demoEditor.editorValue}});
