@@ -140,6 +140,11 @@
         if (drawer && drawer.selected === 'drawer'){ drawer.togglePanel(); }
       },
       packageResponse: function(e, response) {
+        if (!_.findWhere(this.globals.packages, {id: response.response.id})) {
+          this.globals.packages.push(response.response);
+          this.globals.packages.sort(function(a,b){ return (a.name > b.name) ? 1 : -1; });
+        }
+        
         this.globals.package = response.response;
       },
       loadPackage: function(e, packageName) {
