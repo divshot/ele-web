@@ -29,7 +29,7 @@
     
     <template if="{{globals.user && globals.package}}">
       <core-drawer-panel responsiveWidth="1600px" id="drawer">
-        <core-signals on-core-signal-drawer-toggle="{{toggleDrawer}}"></core-signals>
+        <core-signals on-core-signal-drawer-toggle="{{toggleDrawer}}" on-core-signal-save="{{save}}"></core-signals>
 
         <core-header-panel drawer mode="seamed">
           <polymer-flex-layout vertical></polymer-flex-layout>
@@ -77,6 +77,10 @@
           this.$.reqUpdatePackage.params = {name: newName};
           this.$.reqUpdatePackage.go({name: newName});
         }
+      },
+      save: function(e, params) {
+        if (e.source && e.demo) { params = e; }
+        this.$.reqUpdatePackage.go({source: params.source, demo: params.demo});
       },
       saveSucceeded: function() {
         console.log("Save succeeded.");

@@ -1,0 +1,50 @@
+:host { height: 100%; }
+
+panel {
+  display: block;
+  overflow: hidden;
+  position: relative;
+  padding: 20px;
+}
+
+ace-element { width: 100%; height: 100%; }
+
+.card {
+  background: white;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+  position: absolute;
+  width: calc(100% - 25px);
+  height: calc(100% - 25px);
+  top: 20px;
+  left: 5px;
+}
+
+#sourceContainer {
+  width: 50%;
+  padding-right: 5px;
+}
+
+#sourceContainer .card {
+  left: 20px;
+  width: calc(100% - 25px);
+  height: calc(100% - 40px);
+}
+
+#demoContainer {
+}
+#demoContainer .card {
+  top: 5px;
+}
+
+#previewContainer {
+  height: 400px;
+}
+
+polymer-ui-splitter {
+  box-shadow: none;
+  background-color: transparent;
+}
+
+polymer-ui-splitter:hover {
+  background-color: #e5e5e5;
+}
