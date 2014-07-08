@@ -4,8 +4,8 @@
   "clean_urls": false,
   "error_page": "error.html",
   "routes": {
-    "/*/*":"viewer.html",
     "/e":"editor.html",
-    "/e/**":"editor.html"
+    "/e/**":"editor.html",
+    "/*/*":"viewer.html"
   }
 }
