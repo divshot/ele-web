@@ -1,10 +1,14 @@
-<link rel="import" href="../bower_components/core-doc-viewer/core-doc-viewer.html">
 <link rel="import" href="../bower_components/pvc-globals/pvc-globals.html">
 <link rel="import" href="../bower_components/core-layout/core-layout.html">
+<link rel="import" href="../bower_components/core-toolbar/core-toolbar.html">
+<link rel="import" href="../bower_components/code-mirror/code-mirror.html">
 
 <link rel="import" href="divshot-env.html">
+<link rel="import" href="ele-package-docs.html">
+<link rel="import" href="ele-ajax.html">
+<link rel="import" href="ele-preview.html">
 
-<polymer-element name="ele-viewer" attributes="user element">
+<polymer-element name="ele-viewer" attributes="user element package">
   <template>
     <style>
       :host {
@@ -15,16 +19,84 @@
       core-doc-viewer {
         height: 100%;
       }
+      
+      core-toolbar {
+        background: #d26;
+        color: white;
+        fill: white;
+      }
+      
+      ele-package-docs {
+        width: 640px;
+      }
+      
+      code-mirror {
+        height: 200px;
+        margin: 10px 20px 20px;
+        box-shadow: 0px 2px 15px rgba(0,0,0,0.2);
+      }
+      
+      ele-preview {
+        position: absolute;
+        height: calc(100% - 40px);
+        width: calc(100% - 40px);
+        margin: 20px;
+      }
+      
+      #main {
+        min-height: 100%;
+      }
+      
+      #left h3 {
+        margin: 0 20px;
+      }
+      
+      #previewContainer {
+        position: relative;
+      }
     </style>
+    
     <pvc-globals values="{{globals}}"></pvc-globals>
-    <divshot-env values="{{globals.env}}"></divshot-env>
-    <template if="{{globals.env && user && element}}">
-      <core-doc-viewer core-flex url="{{globals.env.API_ORIGIN}}/{{user}}/{{element}}/{{element}}.html"></core-doc-viewer>
+    <divshot-env on-loaded="{{envLoaded}}" values="{{globals.env}}"></divshot-env>
+    <ele-ajax id="reqPackage" path="/{{user}}/{{element}}" method="GET" response="{{package}}"></ele-ajax>
+    
+    <template if="{{package}}">
+      <core-layout vertical isContainer id="main">
+        <core-toolbar>
+          <div class="title">
+            <a href="/"><img src="/images/logo.svg" width="60" alt="Ele"></a>
+          </div>
+          <span>{{user}}/{{package.name}}</span>
+        </core-toolbar>
+        <core-layout isContainer core-flex>
+          <section id="left">
+            <ele-package-docs id="docs" package="{{package}}"></ele-package-docs>
+            <h3>Source Code</h3>
+            <code-mirror value="{{package.files[package.name + '.html']}}" readOnly id="source"></code-mirror>
+            <h3>Demo Code</h3>
+            <code-mirror value="{{package.files['demo.html']}}" readOnly id="demo"></code-mirror>
+          </section>
+          <section core-flex id="previewContainer">
+            <ele-preview source="{{package.files[package.name + '.html']}}" demo="{{package.files['demo.html']}}"></ele-preview>
+          </section>
+        </core-layout>
+      </core-layout>
     </template>
   </template>
   <script>
     Polymer('ele-viewer', {
-      
+      ready: function() {
+        this.setFromURL();
+      },
+      setFromURL: function() {
+        var parts = window.location.pathname.split('/')
+        this.user = parts[1];
+        this.element = parts[2];
+      },
+      envLoaded: function(e, env) {
+        this.$.reqPackage.origin = env.API_ORIGIN;
+        this.$.reqPackage.go();
+      }
     });
   </script>
 </polymer-element>

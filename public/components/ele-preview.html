@@ -1,10 +1,11 @@
 <script src="../bower_components/lodash/dist/lodash.js"></script>
 
-<polymer-element name="ele-preview" attributes="element demo">
+<polymer-element name="ele-preview" attributes="source demo">
   <template>
     <pvc-globals values="{{globals}}"></pvc-globals>
     <style>
       :host {
+        display: block;
         position: relative;
       }
 
@@ -16,23 +17,20 @@
       }
     </style>
     <div id='container'>
-      <iframe id="frame" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts"></iframe>
     </div>
   </template>
   <script>
     Polymer('ele-preview', {
-      animationFrameRequest: undefined,
+      observe: {
+        source: 'sourceChanged',
+        demo: 'sourceChanged'
+      },
       created: function() {
         this.frameId = new Date().getTime();
       },
-      attached: function() {
-        var changeHandler = _.debounce(this.sourceChanged.bind(this), 500);
-        this.element.addEventListener('change', changeHandler);
-        this.demo.addEventListener('change', changeHandler);
-      },
-      sourceChanged: function() {
+      sourceChanged: _.debounce(function() {
         this.nextFrame();
-      },
+      }, 500),
       _tick: function(cb) {
         if (this._currentTick) {
           cancelAnimationFrame(this._currentTick);
@@ -61,7 +59,7 @@
                           '  <base href="' + self.globals.env['API_ORIGIN'] + '/__vendor__/bower/libs/">' +
                           '  <script src="../platform/platform.js"></s' + 'cript>' +
                           '</head>');
-          _document.write('<body>' + self.element.editorValue + "\n\n" + self.demo.editorValue + '</body></html>');
+          _document.write('<body>' + self.source + "\n\n" + self.demo + '</body></html>');
           _document.close();
           
           // clean up old frames once we're loaded up

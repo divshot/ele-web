@@ -22,7 +22,7 @@
           _instances.forEach(function(instance) {
             instance.values = _env;
             instance.loaded = true;
-            instance.fire('loaded', instance.env);
+            instance.fire('loaded', instance.values);
           });
         }
       });

@@ -22,8 +22,8 @@
       <polymer-flex-layout vertical></polymer-flex-layout>
       <panel id="previewContainer">
         <ele-preview class="card" id="preview"
-          demo="{{$.demoEditor}}" 
-          element="{{$.elementEditor}}">
+          demo="{{$.demoEditor.editorValue}}" 
+          source="{{$.elementEditor.editorValue}}">
         </ele-preview>
       </panel>
       <polymer-ui-splitter direction="up"></polymer-ui-splitter>
