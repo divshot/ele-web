@@ -4,15 +4,21 @@
   <base href="/">
   <title>Ele</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=RobotoDraft:300,400,500|Source+Code+Pro:400,700">
-  <link rel="stylesheet" href="/css/editor.css">
+  <link rel="stylesheet" href="/css/viewer.css">
   <script src="bower_components/platform/platform.js"></script>
   <link rel="import" href="bower_components/polymer/polymer.html">
-  <link rel="import" href="components/ele-editor.html">
+  <link rel="import" href="components/ele-viewer.html">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
 </head>
 <body unresolved>
-  <ele-editor></ele-editor>
+  <ele-viewer></ele-viewer>
+  <script>
+    var parts = window.location.pathname.split("/");  
+    var viewer = document.querySelector('ele-viewer');
+    viewer.user = parts[1];
+    viewer.element = parts[2];
+  </script>
 </body>
 </html>

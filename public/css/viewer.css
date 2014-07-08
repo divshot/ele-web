@@ -1,0 +1,15 @@
+* { 
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%; 
+  padding: 0 !important;
+  margin: 0;
+  overflow: hidden;
+}
+
+body { 
+  font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+  background: #fafafa;
+}

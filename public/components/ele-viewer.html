@@ -1,0 +1,30 @@
+<link rel="import" href="../bower_components/core-doc-viewer/core-doc-viewer.html">
+<link rel="import" href="../bower_components/pvc-globals/pvc-globals.html">
+<link rel="import" href="../bower_components/core-layout/core-layout.html">
+
+<link rel="import" href="divshot-env.html">
+
+<polymer-element name="ele-viewer" attributes="user element">
+  <template>
+    <style>
+      :host {
+        display: block;
+        height: 100%;
+      }
+      
+      core-doc-viewer {
+        height: 100%;
+      }
+    </style>
+    <pvc-globals values="{{globals}}"></pvc-globals>
+    <divshot-env values="{{globals.env}}"></divshot-env>
+    <template if="{{globals.env && user && element}}">
+      <core-doc-viewer core-flex url="{{globals.env.API_ORIGIN}}/{{user}}/{{element}}/{{element}}.html"></core-doc-viewer>
+    </template>
+  </template>
+  <script>
+    Polymer('ele-viewer', {
+      
+    });
+  </script>
+</polymer-element>

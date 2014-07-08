@@ -43,10 +43,12 @@
     "core-drawer-panel": "Polymer/core-drawer-panel#~0.3.3",
     "core-signals": "Polymer/core-signals",
     "pvc-globals": "divshot/pvc-globals",
-    "code-mirror": "divshot/code-mirror#master"
+    "code-mirror": "divshot/code-mirror#master",
+    "core-doc-viewer": "Polymer/core-doc-viewer#~0.3.3"
   },
   "resolutions": {
     "polymer": ">=0.3.0 <1.0.0",
-    "platform": ">=0.3.0 <1.0.0"
+    "platform": ">=0.3.0 <1.0.0",
+    "core-component-page": ">=0.3.0 <1.0.0"
   }
 }
