@@ -21,7 +21,7 @@
     <section flex>
       <polymer-flex-layout vertical></polymer-flex-layout>
       <panel id="previewContainer">
-        <ele-preview class="card" 
+        <ele-preview class="card" id="preview"
           demo="{{$.demoEditor}}" 
           element="{{$.elementEditor}}">
         </ele-preview>
@@ -61,6 +61,7 @@
           requestAnimationFrame(function() {
             self.$.elementEditor.mirror.refresh();
             self.$.demoEditor.mirror.refresh();
+            self.$.preview.sourceChanged();
           });
         },
         save: function() {

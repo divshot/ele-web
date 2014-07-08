@@ -27,8 +27,8 @@
       },
       attached: function() {
         var changeHandler = _.debounce(this.sourceChanged.bind(this), 500);
-        this.element.addEventListener('editor-input', changeHandler);
-        this.demo.addEventListener('editor-input', changeHandler);
+        this.element.addEventListener('change', changeHandler);
+        this.demo.addEventListener('change', changeHandler);
       },
       sourceChanged: function() {
         this.nextFrame();
