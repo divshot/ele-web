@@ -84,7 +84,7 @@
         this.$.reqUpdatePackage.go({source: params.source, demo: params.demo});
       },
       saveSucceeded: function() {
-        console.log("Save succeeded.");
+        this.fire('core-signal', {name: 'saved'});
       },
       destroy: function() {
         if (confirm('Are you sure you want to delete this element? There is no going back.')) {

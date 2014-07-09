@@ -50,3 +50,8 @@ paper-icon-button::shadow #icon:hover {
   font-weight: 500;
   text-transform: uppercase;
 }
+
+.saved-at {
+  font-size: 0.7em;
+  opacity: 1.0em;
+}

@@ -5,23 +5,28 @@
 <link rel="import" href="../bower_components/paper-menu-button/paper-menu-button.html">
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../bower_components/pvc-globals/pvc-globals.html">
+<link rel="import" href="../bower_components/core-signals/core-signals.html">
 
 <polymer-element name="ele-header">
   <template>
     <link rel="stylesheet" href="ele-header.css">
+    
+    <core-signals on-core-signal-saved="{{updateSaved}}"></core-signals>
+    
     <core-toolbar>
       <pvc-globals id="globals" values="{{globals}}"></pvc-globals>
       
       <paper-icon-button icon="menu" title="Browse Elements" command="drawer-toggle" id="drawer_toggle" on-click="{{runCommand}}"></paper-icon-button>
       <div>{{globals.package.name}}</div>
-      <div flex>
-        <paper-icon-button icon="create" title="Edit Details"></paper-icon-button>
-        <paper-icon-button icon="social:share" title="Publish Element"></paper-icon-button>
+      <div>
+        <!--<paper-icon-button icon="create" title="Edit Details"></paper-icon-button>-->
+        <paper-icon-button icon="social:share" title="Share Element" on-click="{{openPublicPage}}"></paper-icon-button>
         <paper-icon-button icon="cancel" title="Delete Element" on-click="{{runCommand}}" command="destroy"></paper-icon-button>
       </div>
-      <div>
-        
-      </div>
+      <template if="{{savedAt}}">
+        <span class="saved-at">Last saved at <time>{{savedAt | formatTime}}</time></span>
+      </template>
+      <div flex></div>
       <div id="username">{{globals.user.name}}</div>
       <paper-icon-button icon="help" on-click="{{launchHelp}}" title="Documentation"></paper-icon-button>
       <paper-icon-button icon="exit-to-app" on-click="{{logout}}" title="Logout"></paper-icon-button>
@@ -39,7 +44,18 @@
         this.fire('core-signal', {name: e.target.getAttribute('command')});
       },
       launchHelp: function() {
+        this.fire('core-signal', {name: 'save'});
         window.open('/docs');
+      },
+      openPublicPage: function() {
+        this.fire('core-signal', {name: 'save'});
+        window.open('/' + this.globals.user.username + '/' + this.globals.package.name);
+      },
+      updateSaved: function() {
+        this.savedAt = new Date();
+      },
+      formatTime: function(date) {
+        return date.toTimeString().substr(0,5);
       }
     });
   </script>
