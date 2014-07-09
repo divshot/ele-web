@@ -2,6 +2,9 @@
 <link rel="import" href="../bower_components/core-layout/core-layout.html">
 <link rel="import" href="../bower_components/core-toolbar/core-toolbar.html">
 <link rel="import" href="../bower_components/code-mirror/code-mirror.html">
+<link rel="import" href="../bower_components/twitter-button/dist/twitter-button.html">
+<link rel="import" href="../bower_components/core-icons/core-icons.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 
 <link rel="import" href="divshot-env.html">
 <link rel="import" href="ele-package-docs.html">
@@ -67,6 +70,11 @@
             <a href="/"><img src="/images/logo.svg" width="60" alt="Ele" style="margin-top: -5px;"></a>
           </div>
           <span class="package-name">{{user}}/{{package.name}}</span>
+          <iframe allowtransparency="true" frameborder="0" scrolling="no" data-size="large"
+        src="https://platform.twitter.com/widgets/tweet_button.html?url={{tweetLink}}&amp;text={{tweetText}}&amp;count=horizontal&amp;related=divshot&amp;hashtags=WebComponents"
+        style="width:110px; height:20px; margin: 20px 10px;"></iframe>
+          <div flex></div>
+          <paper-icon-button icon="help" on-click="{{launchHelp}}" title="What is This?"></paper-icon-button>
         </core-toolbar>
         <core-layout isContainer core-flex>
           <section id="left">
@@ -87,6 +95,7 @@
     Polymer('ele-viewer', {
       ready: function() {
         this.setFromURL();
+        this.tweetLink = window.location.href;
       },
       setFromURL: function() {
         var parts = window.location.pathname.split('/')
@@ -96,6 +105,18 @@
       envLoaded: function(e, env) {
         this.$.reqPackage.origin = env.API_ORIGIN;
         this.$.reqPackage.go();
+      },
+      escapeUrl: function(data) {
+        return escape(data);
+      },
+      packageChanged: function() {
+        if (this.package) {
+          document.title = this.user + "/" + this.package.name + " - Ele";
+          this.tweetText = "Check out the " + this.package.name + " custom element by " + this.user + " on Ele"; 
+        }
+      },
+      launchHelp: function() {
+        window.open('/docs#public');
       }
     });
   </script>
