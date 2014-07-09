@@ -46,6 +46,7 @@
           this._save = _.debounce(this.save.bind(this), 5000);
         },
         editorChanged: function() {
+          this.$.preview.sourceChanged();
           this._updateName();
           this._save();
         },
