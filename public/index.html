@@ -11,6 +11,19 @@
   <script src="/bower_components/platform/platform.js"></script>
   <link rel="import" href="bower_components/polymer/polymer.html">
   <link rel="import" href="components/lander/index.html">
+  <!-- start Mixpanel --><script type="text/javascript">(function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
+for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2.2.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);
+mixpanel.init("45d124e8df6d8dca96b790e251cff7e2");</script><!-- end Mixpanel -->
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-30884255-11', 'auto');
+  ga('send', 'pageview');
+
+</script>
 </head>
 <body unresolved>
   <core-scroll-header-panel fixed unresolved>
@@ -19,10 +32,9 @@
         <a href="/"><img src="/images/logo.svg" width="72" alt="Ele"></a>
       </div>
       <nav>
-        <a href="#"><paper-button label="Components"></paper-button></a>
-        <a href="#"><paper-button label="Resources"></paper-button></a>
+        <a href="/docs"><paper-button label="Documentation"></paper-button></a>
         <a rel="login"><paper-button label="Login"></paper-button></a>
-        <a href="#"><paper-button icon="search"></paper-button></a>
+        <!--<a href="#"><paper-button icon="search"></paper-button></a>-->
       </nav>
     </core-toolbar>
     <div class="content">
@@ -34,8 +46,8 @@
                 <img class="web-component-icon" src="/images/web-components.svg" width="100%">
               </bs-col>
               <bs-col md="9">
-                <h1>Build, Browse, and Publish Web Components</h1>
-                <p>Ele (call it &ldquo;Ellie&rdquo;) is a streamlined environment for exploring, experimenting with, and publishing reusable custom HTML elements made with Web Components.</p>
+                <h1>Build and Share Web Components</h1>
+                <p>Ele (call it &ldquo;Ellie&rdquo;) is a streamlined environment for exploring, experimenting with, and sharing reusable custom HTML elements made with Web Components.</p>
                 <paper-button class="github" iconsrc="/images/github-white.svg" role="button" label="Sign in with GitHub" aria-label="Sign in with GitHub" raisedButton rel="login"></paper-button>
               </bs-col>
             </bs-row>
@@ -44,29 +56,29 @@
         <section id="features">
           <bs-container>
             <bs-row>
-              <bs-col md="4">
+              <bs-col md="6">
                 <div class="feature">
                   <div id="browser-icon" class="feature-icon" style="background: #fafafa">
                     <paper-ripple fit></paper-ripple>
                     <img src="/images/browser.svg" width="51">
                   </div>
                   <h3>Build in the Browser</h3>
-                  <p>Code your component directly in the browser with full access to Polymer’s element sets.</p>
-                  <paper-button icon="arrow-forward" label="Start Building"></paper-button>
+                  <p>Code your component directly in the browser with full access to Polymer's element sets.</p>
+                  <!--<paper-button icon="arrow-forward" label="Start Building"></paper-button>-->
                 </div>
               </bs-col>
-              <bs-col md="4">
+              <bs-col md="6">
                 <div class="feature">
                   <div id="speaker-icon" class="feature-icon" style="background: #e1f5fe">
                     <paper-ripple fit></paper-ripple>
                     <img src="/images/speaker.svg" width="52">
                   </div>
                   <h3>Showcase It</h3>
-                  <p>Create a demo to quickly showcase your awesome element. Browse elements made by others.</p>
-                  <paper-button icon="arrow-forward" label="Browse Components"></paper-button>
+                  <p>Create a demo to quickly showcase your awesome element. Share it with the world!</p>
+                  <!-- <paper-button icon="arrow-forward" label="Share"></paper-button> -->
                 </div>
               </bs-col>
-              <bs-col md="4">
+              <!-- <bs-col md="4">
                 <div class="feature">
                   <div id="lightning-icon" class="feature-icon" style="background: #fffde7">
                     <paper-ripple fit></paper-ripple>
@@ -76,7 +88,7 @@
                   <p>Publish releases of your element and use them directly from our CDN or install them using Bower.</p>
                   <paper-button icon="arrow-forward" label="How To Publish"></paper-button>
                 </div>
-              </bs-col>
+              </bs-col> -->
             </bs-row>
           </bs-container>
         </section>
