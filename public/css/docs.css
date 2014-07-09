@@ -1,0 +1,70 @@
+/* white: #FAFAFA */
+/* grey: #EAEAEA */
+/* dark grey: #999 */
+/* indigo: #3F51B5 */
+/* indigo 100: #C5CAE9 */
+/* indigo 500: #3F51B5 */
+/* indigo 700: #303F9F */
+/* pink: #FF4081 */
+
+* {
+  box-sizing: border-box;
+}
+
+body { 
+  font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background: white;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: #ff4081;
+}
+
+core-toolbar {
+  background: #3f51b5;
+  color: white;
+  fill: white;
+}
+
+core-toolbar nav a {
+  font-size: 0.7em;
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+  margin: 0 10px;
+}
+
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  line-height: 140%;
+}
+
+main li {
+  margin-bottom: 0.3em;
+}
+
+main h2 {
+  color: #3f51b5;
+  border-bottom: 3px solid #c5cae9;
+  padding-bottom: 6px;
+  margin-bottom: 0.7em;
+}
+
+p.lead {
+  font-size: 1.2em;
+}
+
+footer {
+  color: #999;
+  text-align: center;
+  margin: 3em 0 2em;
+  font-size: 0.8em;
+}
+
+footer a {
+  color: #999;
+}
