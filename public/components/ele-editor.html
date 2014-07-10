@@ -85,6 +85,7 @@
       },
       saveSucceeded: function() {
         this.fire('core-signal', {name: 'saved'});
+        mixpanel.track('Element Saved', {name: this.globals.package.name});
       },
       destroy: function() {
         if (confirm('Are you sure you want to delete this element? There is no going back.')) {
@@ -92,6 +93,7 @@
         }
       },
       destroySucceeded: function() {
+        mixpanel.track('Element Deleted', {name: this.globals.package.name});
         for (var i = 0; i < this.globals.packages.length; i++) {
           if (this.globals.packages[i].id === this.globals.package.id) {
             this.globals.packages.splice(i, 1); break;
@@ -104,6 +106,14 @@
         if (result.response === 200) {
           this.globals.user = this.$.reqSelf.response;
           this.globals.packages = this.globals.user.packages;
+          
+          ga('set', '&uid', this.globals.user.github_id);
+          mixpanel.identify(this.globals.user.github_id);
+          mixpanel.people.set({
+            "name": this.globals.user.username,
+            "elements": this.globals.packages.length
+          });
+          mixpanel.track('Launched Editor');
           
           if (!this.globals.package) {
             if (this.globals.packages.length > 0) {
@@ -127,6 +137,7 @@
         this.globals.package = null;
         this.packageId = null;
         this.$.reqCreatePackage.go();
+        mixpanel.track('Created Element');
       },
       packageChanged: function() {
         if (this.globals.package) {
@@ -146,6 +157,7 @@
         }
         
         this.globals.package = response.response;
+        mixpanel.track('Opened Element', {name: this.globals.package.name});
       },
       loadPackage: function(e, packageId) {
         this.packageId = packageId;

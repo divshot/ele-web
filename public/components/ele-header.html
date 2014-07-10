@@ -44,10 +44,12 @@
         this.fire('core-signal', {name: e.target.getAttribute('command')});
       },
       launchHelp: function() {
+        mixpanel.track('Opened Documentation');
         this.fire('core-signal', {name: 'save'});
         window.open('/docs');
       },
       openPublicPage: function() {
+        mixpanel.track('Element Public Page Opened', {name: this.globals.package.name});
         this.fire('core-signal', {name: 'save'});
         window.open('/' + this.globals.user.username + '/' + this.globals.package.name);
       },
