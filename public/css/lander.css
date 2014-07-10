@@ -31,6 +31,12 @@ nav {
   right: 10px;
 }
 
+nav paper-button span {
+  font-size: 14px;
+  color: #C5CAE9;
+  transition: fill 0.2s;
+}
+
 nav paper-button::shadow span {
   font-size: 14px;
   color: #C5CAE9;
@@ -55,10 +61,6 @@ nav paper-button::shadow #icon:hover {
 nav paper-button::shadow #icon svg {
   width: 20px !important;
   height: 20px !important;
-}
-
-bs-container {
-  max-width: 780px;
 }
 
 #intro {
@@ -93,10 +95,23 @@ bs-container {
   background: #FF4081;
 }
 
+#intro paper-button #icon {
+  margin-top: 7px;
+  margin-right: 4px;
+  padding-left: 8px;
+}
+
 #intro paper-button::shadow #icon {
   margin-top: 7px;
   margin-right: 4px;
   padding-left: 8px;
+}
+
+#intro paper-button span {
+  color: #fff;
+  margin-left: 0;
+  padding-right: 8px;
+  font-size: 16px;
 }
 
 #intro paper-button::shadow span {
@@ -190,6 +205,11 @@ core-scroll-header-panel.scrolling::shadow #headerContainer {
 }
 
 core-scroll-header-panel::shadow #headerBg {
+  background: #3F51B5;
+  border-top: 4px solid #303F9F;
+}
+
+core-scroll-header-panel #headerBg, core-scroll-header-panel #condensedHeaderBg {
   background: #3F51B5;
   border-top: 4px solid #303F9F;
 }

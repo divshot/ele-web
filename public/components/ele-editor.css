@@ -1,4 +1,4 @@
-core-toolbar {
+#browse-elements {
   background: #FF4081;
   color: white;
   fill: white;
@@ -23,5 +23,5 @@ core-drawer-panel::shadow #scrim {
 }
 
 pvc-spinner::shadow .spinner > div {
-  background: #FF4081;
+  background: #FF4081 !important;
 }
