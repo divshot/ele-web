@@ -17,3 +17,7 @@ core-toolbar {
   display: block;
   margin: 10px;
 }
+
+pvc-spinner::shadow .spinner > div {
+  background: #3F51B5;
+}
