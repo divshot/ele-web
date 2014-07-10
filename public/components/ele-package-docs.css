@@ -28,11 +28,20 @@ markedjs-element {
 .ntitle {
   font-size: 22px;
   padding-bottom: 4px;
-  border-bottom: 1px solid whitesmoke;
+  background-color: #3F51B5 !important;
 }
 
 .box {
-  margin-bottom: 40px;
+  margin-bottom: 30px;
+}
+
+.box p {
+  color: #333;
+  line-height: 24px;
+}
+
+#left h3 {
+  font-weight: normal !important;
 }
 
 .top pre {
@@ -69,21 +78,27 @@ pre code {
   flex: 2;
 }
 
+.details p {
+  margin: 0;
+}
+
 .attribute-box {
+  font-size: 14px;
+  line-height: 24px;
 }
 
 .attribute-box .details {
-  background-color: #FFF9C4;
+  background-color: #fff;
   padding: 8px 16px;
-  border-bottom: 1px solid #D1CCA1;
 }
 
 .attribute-box .ntitle {
+  font-size: 16px;
   padding: 10px 16px;
 }
 
 .attribute-box code {
-  color: #FFAB40;
+  color: #E91E63;
   border: none;
   background-color: transparent;
   border-radius: none;
