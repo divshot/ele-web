@@ -43,6 +43,7 @@
     "core-drawer-panel": "Polymer/core-drawer-panel#~0.3.3",
     "core-signals": "Polymer/core-signals",
     "pvc-globals": "divshot/pvc-globals",
+    "pvc-spinner": "divshot/pvc-spinner",
     "code-mirror": "divshot/code-mirror#master",
     "core-doc-viewer": "Polymer/core-doc-viewer#~0.3.3"
   },

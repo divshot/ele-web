@@ -3,6 +3,7 @@
 <link rel="import" href="../bower_components/core-signals/core-signals.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/pvc-globals/pvc-globals.html">
+<link rel="import" href="../bower_components/pvc-spinner/pvc-spinner.html">
       
 <!-- UI -->
 <link rel="import" href="ele-workspace.html">
@@ -49,7 +50,7 @@
       </core-drawer-panel>
     </template>
     <template if="{{!globals.user || !globals.package}}">
-      <div id="spinner">Loading, please wait...</div>
+      <pvc-spinner type="three-bounce"></pvc-spinner>
     </template>
   </template>
   <script>
