@@ -69,7 +69,7 @@ footer a {
   color: #999;
 }
 
-#login-button {
+.btn {
   font-size: 0.8em;
   color: white;
   display: inline-block;
@@ -77,4 +77,12 @@ footer a {
   text-decoration: none;
   background: #303f9f;
   border-radius: 3px;
+}
+
+#report-button {
+  background: #ff4081;
+}
+
+@media (max-width: 800px) {
+  core-toolbar nav { display: none; }
 }
