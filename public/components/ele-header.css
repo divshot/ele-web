@@ -54,7 +54,8 @@ paper-icon-button::shadow #icon:hover {
 
 .saved-at {
   font-size: 0.7em;
-  opacity: 1.0em;
+  color: #C5CAE9;
+  opacity: 0.8;
 }
 
 core-tooltip.fancy::shadow .polymer-tooltip {
