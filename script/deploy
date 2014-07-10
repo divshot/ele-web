@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+DEFAULT_ENV=development
+
+script/vulcanize
+echo "Creating vulcanized divshot.json target ..."
+sed 's/"public"/"dist"/' divshot.json > divshot.vulcanize.json
+divshot push ${1-$DEFAULT_ENV} -c divshot.vulcanize.json
+rm divshot.vulcanize.json

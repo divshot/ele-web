@@ -1,13 +1,13 @@
 #!/usr/bin/env sh
 
-echo "- Removing dist directory"
+echo "Removing dist directory ..."
 rm -r dist
-echo "- Copying public to dist"
+echo "Copying public to dist ..."
 cp -r public dist
 
 cd dist
 
-echo "- Vulcanizing..."
+echo "Vulcanizing ..."
 vulcanize -s -o index.html index.html
 vulcanize -s -o editor.html editor.html
 vulcanize -s -o viewer.html viewer.html
