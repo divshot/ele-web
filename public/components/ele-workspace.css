@@ -7,7 +7,16 @@ panel {
   padding: 20px;
 }
 
-code-mirror { width: 100%; height: 100%; }
+code-mirror { 
+  width: 100%;
+  height: 100%;
+}
+
+code-mirror::shadow .CodeMirror {
+  font-family: Monaco, Menlo, Consolas, 'Courier New', monospace;
+  font-size: 12px;
+  line-height: 18px;
+}
 
 .card {
   background: white;
