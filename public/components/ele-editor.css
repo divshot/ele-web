@@ -8,6 +8,10 @@ core-toolbar {
   z-index: 1000;
 }
 
+core-drawer-panel::shadow #scrim {
+  z-index: 4;
+}
+
 #element-sidebar {
   background: white;
 }
