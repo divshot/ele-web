@@ -41,6 +41,7 @@ code-mirror::shadow .CodeMirror {
 
 #demoContainer {
 }
+
 #demoContainer .card {
   top: 5px;
 }
@@ -52,8 +53,11 @@ code-mirror::shadow .CodeMirror {
 polymer-ui-splitter {
   box-shadow: none;
   background-color: transparent;
+  opacity: 0.4;
+  transition: opacity 250ms;
 }
 
-polymer-ui-splitter:hover {
-  background-color: #e5e5e5;
+polymer-ui-splitter:hover, polymer-ui-splitter.active {
+  background-color: transparent;
+  opacity: 1;
 }
