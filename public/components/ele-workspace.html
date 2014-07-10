@@ -54,7 +54,9 @@
           var source = this.$.elementEditor.editorValue;
           var match = source.match(NAME_REGEX);
           if (match && match[1]) {
-            this.globals.package.name = match[1].trim();
+            var newName = match[1].trim();
+            this.globals.package.name = newName;
+            this.globals.package.files[newName + '.html'] = this.$.elementEditor.editorValue;
           }
         },
         packageChanged: function() {
