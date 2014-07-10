@@ -3,6 +3,10 @@
   position: relative;
 }
 
+a {
+  color: #ff4081;
+}
+
 #panel {
   position: absolute;
   top: 0;
@@ -170,4 +174,3 @@ pre code {
   padding: 0;
   font-size: 1.2em;
 }
-
