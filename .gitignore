@@ -1,3 +1,4 @@
 /public/bower_components
+/dist
 .env.json
 .divshot-cache
