@@ -42,6 +42,7 @@
     "paper-menu-button": "Polymer/paper-menu-button#~0.3.3",
     "core-drawer-panel": "Polymer/core-drawer-panel#~0.3.3",
     "core-signals": "Polymer/core-signals",
+    "core-tooltip": "Polymer/core-tooltip",
     "pvc-globals": "divshot/pvc-globals",
     "pvc-spinner": "divshot/pvc-spinner",
     "code-mirror": "divshot/code-mirror#master",
