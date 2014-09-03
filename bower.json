@@ -50,7 +50,6 @@
   },
   "resolutions": {
     "polymer": ">=0.4.0 <1.0.0",
-    "platform": ">=0.4.0 <1.0.0",
-    "core-component-page": ">=0.4.0 <1.0.0"
+    "platform": ">=0.4.0 <1.0.0"
   }
 }
