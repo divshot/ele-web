@@ -25,10 +25,44 @@ h3 + p { font-size: 14px; line-height: 24px; color: #979797; }
 
 .sign-in { display: block; padding: 10px; }
 
-nav {
+core-toolbar {
+  background: #3F51B5;
+  border-top: 4px solid #303F9F;
+}
+
+core-toolbar > div, core-toolbar #topBar > div {
+  width: 100%;
+}
+
+core-toolbar .title {
+  margin-top: 0;
+  padding-left: 8px;
+}
+
+core-toolbar nav {
+  padding-right: 8px;
+}
+
+core-scroll-header-panel {
   position: absolute;
-  top: 16px;
-  right: 10px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+core-scroll-header-panel::shadow #headerContainer {
+  box-shadow: none;
+  transition: 200ms box-shadow ease-out;
+  /*box-shadow: 0 3px 3px rgba(0,0,0,.23);*/
+}
+
+core-scroll-header-panel.scrolling::shadow #headerContainer {
+  box-shadow: 0 3px 3px rgba(0,0,0,.23);
+}
+
+.title {
+  font-size: 40px;
 }
 
 nav paper-button span {
@@ -93,18 +127,17 @@ nav paper-button::shadow #icon svg {
 #intro paper-button {
   color: #000;
   background: #FF4081;
+  padding-left: 6px;
 }
 
 #intro paper-button #icon {
   margin-top: 7px;
   margin-right: 4px;
-  padding-left: 8px;
 }
 
 #intro paper-button::shadow #icon {
   margin-top: 7px;
   margin-right: 4px;
-  padding-left: 8px;
 }
 
 #intro paper-button span {
@@ -176,44 +209,6 @@ footer a:hover {
   color: #000;
 }
 
-footer core-icon {
+footer core-icon svg {
   fill: #F36C60;
-}
-
-core-toolbar .title {
-  margin-top: 6px;
-  padding-left: 8px;
-}
-
-core-scroll-header-panel {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-
-/* background for toolbar when it is at its full size */
-core-scroll-header-panel::shadow #headerContainer {
-  box-shadow: none;
-  transition: 200ms box-shadow ease-out;
-  /*box-shadow: 0 3px 3px rgba(0,0,0,.23);*/
-}
-
-core-scroll-header-panel.scrolling::shadow #headerContainer {
-  box-shadow: 0 3px 3px rgba(0,0,0,.23);
-}
-
-core-scroll-header-panel::shadow #headerBg {
-  background: #3F51B5;
-  border-top: 4px solid #303F9F;
-}
-
-core-scroll-header-panel #headerBg, core-scroll-header-panel #condensedHeaderBg {
-  background: #3F51B5;
-  border-top: 4px solid #303F9F;
-}
-
-.title {
-  font-size: 40px;
 }

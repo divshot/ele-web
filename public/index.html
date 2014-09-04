@@ -29,14 +29,19 @@ mixpanel.init("45d124e8df6d8dca96b790e251cff7e2");</script><!-- end Mixpanel -->
 <body unresolved>
   <core-scroll-header-panel fixed unresolved>
     <core-toolbar>
-      <div class="title">
-        <a href="/"><img src="/images/logo.svg" width="72" alt="Ele"></a>
+      <div horizontal center layout>
+        <div class="title">
+          <a href="/"><img src="/images/logo.svg" width="72" alt="Ele"></a>
+        </div>
+        <div flex></div>
+        <div>
+          <nav>
+            <a href="/docs"><paper-button label="Documentation"></paper-button></a>
+            <a href="#"><paper-button label="Login" rel="login"></paper-button></a>
+            <!--<a href="#"><paper-button icon="search"></paper-button></a>-->
+          </nav>
+        </div>
       </div>
-      <nav>
-        <a href="/docs"><paper-button label="Documentation"></paper-button></a>
-        <a href="#"><paper-button label="Login" rel="login"></paper-button></a>
-        <!--<a href="#"><paper-button icon="search"></paper-button></a>-->
-      </nav>
     </core-toolbar>
     <div class="content">
       <main>
